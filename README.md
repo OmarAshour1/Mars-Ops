@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MARS-OPS: Emergency Protocols
 
 This document details the specific emergency types and resource management rules for the **MARS-OPS** simulator.
@@ -27,3 +28,6 @@ This document details the specific emergency types and resource management rules
 * **Robot Responder:** Rover
 * **Required Resources:** 5 Medical Supplies
 * **Note:** Check if the affected facility is operational before dispatch.
+=======
+# Mars-Ops !!!
+>>>>>>> 0bf3b1d1eec6fd0dc9cf93c9db2717484c6637d4
