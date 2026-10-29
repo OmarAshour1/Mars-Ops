@@ -5,3 +5,4 @@ bin/
 *.iml
 .vscode/
 .DS_Store
+/JavaApplication4/nbproject/private/
