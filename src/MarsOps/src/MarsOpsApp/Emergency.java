@@ -10,13 +10,12 @@ abstract public class Emergency {
     private EmergencyStatus emergencyStatus;
     private String name;
     private int[] location;
-    private Faciliity place ;
-    private Boolean status;
+    private Facility place ;
     private HumanPersonnel personnel;
     private RoboticUnit robot;
     private Resources resources;
 
-    public Emergency(String name, int[] location, Faciliity place) {
+    public Emergency(String name, int[] location, Facility place) {
         emergencyStatus = EmergencyStatus.UnResolved;
         this.name = name;
         this.location = location;
@@ -27,15 +26,20 @@ abstract public class Emergency {
         return location;
     }
 
-    public Faciliity getPlace() {
+    public Facility getPlace() {
         return place;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public EmergencyStatus getStatus() {
+        return emergencyStatus;
+    }
+
+    public void setEmergencyStatus(EmergencyStatus emergencyStatus) {
+        this.emergencyStatus = emergencyStatus;
     }
     
-    private Boolean assignHuman(HumanPersonnel person){
+    
+    protected Boolean assignHuman(HumanPersonnel person){
         if(!person.getavailability())
             return false;
         personnel = person;
@@ -44,7 +48,7 @@ abstract public class Emergency {
         return true;
     }
     
-    private Boolean assignRobot(RoboticUnit robot){
+    protected Boolean assignRobot(RoboticUnit robot){
         if(!robot.getAvailability())
             return false;
         this.robot = robot;
@@ -53,7 +57,7 @@ abstract public class Emergency {
         return true;
     }
     
-    abstract public Boolean resolve();
+    abstract public Boolean resolve(Object found[]);
     abstract public Object[] requirments();
     
     
