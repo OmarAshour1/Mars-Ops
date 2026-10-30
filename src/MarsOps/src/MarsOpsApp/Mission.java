@@ -1,17 +1,21 @@
 package MarsOpsApp;
 
 public abstract class Mission {
-    public enum state{
-        in_progress,completed,faild
+    public enum MissionStatus {
+        Un_ASSIGNED,
+        IN_PROGRESS,
+        COMPLETED,
+        FAILED
     }
-    private int[] Status = new int[2];
-    private String Name;
+    private MissionStatus status ;
+    private String name;
     private facilites facility;
+    private int [] location =new int[2] ;
 
-    public Mission(facilites facility, String name, int[] status) {
+    public Mission(facilites facility, String name) {
         this.facility = facility;
-        Name = name;
-        Status = status;
+        this.name = name;
+        status = MissionStatus.Un_ASSIGNED;
     }
 
     public String getName() {
@@ -22,9 +26,13 @@ public abstract class Mission {
         return facility;
     }
 
-    public int[] getStatus() {
-        return Status;
+    public MissionStatus getStatus() {
+        return this.Status;
     }
     public abstract boolean startMission(Object [] requirments);
+    public boolean endMission(){
+        this.status=MissionStatus.COMPLETED;
+        return true;
+    }
 
 }
