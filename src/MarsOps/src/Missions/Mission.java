@@ -1,38 +1,65 @@
 package Missions;
-
+import Agents.HumanPersonnel;
+import FacilitiesAndResources.Facilities;
 public abstract class Mission {
     public enum MissionStatus {
-        Un_ASSIGNED,
+        UN_ASSIGNED,
         IN_PROGRESS,
         COMPLETED,
         FAILED
     }
     private MissionStatus status ;
     private String name;
-    private facilites facility;
+    private Facilities facility;
     private int [] location =new int[2] ;
 
-    public Mission(facilites facility, String name) {
+    public Mission(Facilities facility, String name) {
         this.facility = facility;
         this.name = name;
-        status = MissionStatus.Un_ASSIGNED;
+        status = MissionStatus.UN_ASSIGNED;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public facilites getFacility() {
+    public Facilities getFacility() {
         return facility;
     }
 
     public MissionStatus getStatus() {
-        return this.Status;
+        return this.status;
+    }
+
+    protected boolean missionFaild(int x){
+        if(x==0)
+            System.out.println("the Scientist with the  scientific skill isn't found ");
+        else if (x==1)
+            System.out.println("the Engineer isn't found ");
+        else if (x==2)
+            System.out.println("the Rover isn't found ");
+        else if (x==3)
+            System.out.println("the Repair Robot isn't found ");
+        else if (x==4)
+            System.out.println(" Insufficient Resources ");
+        else if (x==5)
+            System.out.println("the Exploration equipment isn't found ");
+        else
+            return false;
+        return true;
     }
     public abstract boolean startMission(Object [] requirments);
+
     public boolean endMission(){
         this.status=MissionStatus.COMPLETED;
         return true;
     }
+
+    public boolean changeStatus(MissionStatus s){
+        this.status=s;
+        return true;
+    }
+
+
 
 }

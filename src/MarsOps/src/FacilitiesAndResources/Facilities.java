@@ -1,5 +1,5 @@
 package FacilitiesAndResources;
 
-public class Facility {
+public class Facilities {
     
 }
