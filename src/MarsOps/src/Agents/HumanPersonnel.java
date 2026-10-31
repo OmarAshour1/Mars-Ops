@@ -1,11 +1,13 @@
 package Agents;
 
+import FacilitiesAndResources.Facility;
+
 public class HumanPersonnel {
     private String name;
     private int identificationNumber;
     private boolean healthStatus;
     private int[] location;
-    private String place;
+    private Facility place;
     private String[] skills;
     private int fatigueLevel;
     private boolean availability;
@@ -51,7 +53,7 @@ public class HumanPersonnel {
         return location;
     }
 
-    public String getPlace() {
+    public Facility getPlace() {
         return place;
     }
 
@@ -76,7 +78,7 @@ public class HumanPersonnel {
     }
 
     // Protected setters/modifiers
-    protected boolean setCurrentLocation(int[] location, String place) {
+    public boolean setCurrentLocation(int[] location, String place) {
         if (location == null || location.length != 2) {
             return false;
         }
@@ -85,18 +87,18 @@ public class HumanPersonnel {
         return true;
     }
 
-    protected boolean changeHealthStatus(boolean status) {
+    public boolean changeHealthStatus(boolean status) {
         this.healthStatus = status;
         return true;
     }
 
-    protected boolean increaseFatigueLevel(int level) {
+    public boolean increaseFatigueLevel(int level) {
         if (level < 0) return false;
         this.fatigueLevel = Math.min(5, this.fatigueLevel + level);
         return true;
     }
 
-    protected boolean changeAvailability() {
+    public boolean changeAvailability() {
         this.availability = !this.availability;
         return true;
     }
