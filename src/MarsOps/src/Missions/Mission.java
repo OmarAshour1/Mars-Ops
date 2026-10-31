@@ -1,4 +1,4 @@
-package MarsOpsApp;
+package Missions;
 
 public abstract class Mission {
     public enum MissionStatus {
