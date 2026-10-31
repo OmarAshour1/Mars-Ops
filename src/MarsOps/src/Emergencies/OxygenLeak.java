@@ -1,12 +1,12 @@
 package Emergencies;
 
-import FacilitiesAndResources.Facility;
+import FacilitiesAndResources.Facilities;
 
 public class OxygenLeak extends Emergency {
     private static final double amountLeak = -20;
     private static final Resources resource = new Resources(0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 4.0);
 
-    public OxygenLeak(String name, int[] location, Facility place) {
+    public OxygenLeak(String name, int[] location, Facilities place) {
         //if place is not habbitat throw an error
         super(name, location, place);
         Boolean ret = place.changeResources("oxygen" ,amountLeak);
@@ -18,7 +18,7 @@ public class OxygenLeak extends Emergency {
         }
         // else throw an error
     }
-    public OxygenLeak(String name, Facility place) {
+    public OxygenLeak(String name, Facilities place) {
         //if place is not habbitat throw an error
         Boolean ret = place.changeResources("oxygen" ,amountLeak);
         if(ret) {

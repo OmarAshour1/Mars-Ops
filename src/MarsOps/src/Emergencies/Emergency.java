@@ -1,6 +1,6 @@
 package Emergencies;
 
-import FacilitiesAndResources.Facility;
+import FacilitiesAndResources.Facilities;
 import Agents.HumanPersonnel;
 
 abstract public class Emergency {
@@ -13,12 +13,12 @@ abstract public class Emergency {
     private EmergencyStatus emergencyStatus;
     private String name;
     private int[] location;
-    private Facility place ;
+    private Facilities place ;
     private HumanPersonnel personnel;
     private RoboticUnit robot;
     private Resources resources;
 
-    public Emergency(String name, int[] location, Facility place) {
+    public Emergency(String name, int[] location, Facilities place) {
         emergencyStatus = EmergencyStatus.UnResolved;
         this.name = name;
         this.location = location;
@@ -29,7 +29,7 @@ abstract public class Emergency {
         return location;
     }
 
-    public Facility getPlace() {
+    public Facilities getPlace() {
         return place;
     }
 
