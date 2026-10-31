@@ -6,25 +6,26 @@ public class OxygenLeak extends Emergency {
 
     public OxygenLeak(String name, int[] location, Facility place) {
         //if place is not habbitat throw an error
+        super(name, location, place);
         Boolean ret = place.changeResources("oxygen" ,amountLeak);
-        if(ret)
-            if(place.getAvailability())
+        if(ret) {
+            if (place.getAvailability())
                 place.changeAvailability();
-            if(place.getOperational())
+            if (place.getOperational())
                 place.changeOperationalStatus();
-            super(name, location, place);
-        
+        }
         // else throw an error
     }
     public OxygenLeak(String name, Facility place) {
         //if place is not habbitat throw an error
         Boolean ret = place.changeResources("oxygen" ,amountLeak);
-        if(ret)
-            if(place.getAvailability())
+        if(ret) {
+            if (place.getAvailability())
                 place.changeAvailability();
-            if(place.getOperational())
+            if (place.getOperational())
                 place.changeOperationalStatus();
-            super(name, place.getLocation() ,place);
+            super(name, place.getLocation(), place);
+        }
         // else throw an error
     }
 
