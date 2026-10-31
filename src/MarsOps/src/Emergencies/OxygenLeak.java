@@ -43,10 +43,10 @@ public class OxygenLeak extends Emergency {
         req[0] = "engineer"; // human
         req[1] = "leakage"; // skill
         req[2] = "repairunit"; //robot
-        req[3] = resource; //resources
-        req[4] = null; //exploration equipment
-        req[5] = null; //scientific equipment
-        req[6] = resource.checkResources();
+        req[3] = null; //facility
+        req[4] = resource; //resources
+        req[5] = null; //exploration equipment
+        req[6] = null; //scientific equipment
         return req;
     }
     
