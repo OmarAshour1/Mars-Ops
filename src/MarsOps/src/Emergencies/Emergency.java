@@ -1,6 +1,6 @@
 package Emergencies;
 
-import FacilitiesAndResources.Facilities;
+import FacilitiesAndResources.Facility;
 import Agents.HumanPersonnel;
 
 abstract public class Emergency {
@@ -13,13 +13,12 @@ abstract public class Emergency {
     private EmergencyStatus emergencyStatus;
     private String name;
     private int[] location;
-    private Faciliity place ;
-    private Boolean status;
+    private Facility place ;
     private HumanPersonnel personnel;
     private RoboticUnit robot;
     private Resources resources;
 
-    public Emergency(String name, int[] location, Faciliity place) {
+    public Emergency(String name, int[] location, Facility place) {
         emergencyStatus = EmergencyStatus.UnResolved;
         this.name = name;
         this.location = location;
@@ -30,7 +29,7 @@ abstract public class Emergency {
         return location;
     }
 
-    public Faciliity getPlace() {
+    public Facility getPlace() {
         return place;
     }
 
@@ -42,12 +41,13 @@ abstract public class Emergency {
         this.emergencyStatus = emergencyStatus;
     }
     
-
+    
     protected Boolean assignHuman(HumanPersonnel person){
-        if(!person.getavailability())
+        if(!person.getAvailability())
             return false;
         personnel = person;
         personnel.changeAvailability();
+        personnel.increaseFatigueLevel(1);
         personnel.setCurrentLocation(location , place);
         return true;
     }
@@ -57,6 +57,7 @@ abstract public class Emergency {
             return false;
         this.robot = robot;
         this.robot.changeAvailability();
+        this.robot.decreaseBatteryLevel();
         this.robot.setCurrentLocation(location , place);
         return true;
     }
