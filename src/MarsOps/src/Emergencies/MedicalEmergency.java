@@ -35,9 +35,10 @@ public class MedicalEmergency extends Emergency{
         req[0] = "medicalofficer"; // human
         req[1] = "firstaid"; // skill
         req[2] = "rover"; //robot
-        req[3] = resource; //resources
-        req[4] = null; //exploration equipment
-        req[5] = null; //scientific equipment
+        req[3] = null; //facility
+        req[4] = resource; //resources
+        req[5] = null; //exploration equipment
+        req[6] = null; //scientific equipment
         return req;
     }
 

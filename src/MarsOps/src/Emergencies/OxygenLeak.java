@@ -18,6 +18,7 @@ public class OxygenLeak extends Emergency {
         }
         // else throw an error
     }
+
     public OxygenLeak(String name, Facility place) {
         //if place is not habbitat throw an error
         super(name, place.getLocation(), place);
@@ -27,7 +28,6 @@ public class OxygenLeak extends Emergency {
                 place.changeAvailability();
             if (place.getOperational())
                 place.changeOperationalStatus();
-
         }
         // else throw an error
     }
@@ -38,14 +38,15 @@ public class OxygenLeak extends Emergency {
     
     @Override
     public Object[] requirments(){
+        //resource =getPlace().getResources().sub(resource);
         Object req[] = new Object[12];
         req[0] = "engineer"; // human
         req[1] = "leakage"; // skill
         req[2] = "repairunit"; //robot
-        req[3] = null; //Facility
+        req[3] = null; //facility
         req[4] = resource; //resources
         req[5] = null; //exploration equipment
-        req[6] = null;//scientific equipment
+        req[6] = null; //scientific equipment
         return req;
     }
     
