@@ -18,15 +18,16 @@ public class OxygenLeak extends Emergency {
         }
         // else throw an error
     }
+
     public OxygenLeak(String name, Facility place) {
         //if place is not habbitat throw an error
+        super(name, place.getLocation(), place);
         Boolean ret = place.changeResources("oxygen" ,amountLeak);
         if(ret) {
             if (place.getAvailability())
                 place.changeAvailability();
             if (place.getOperational())
                 place.changeOperationalStatus();
-            super(name, place.getLocation(), place);
         }
         // else throw an error
     }
@@ -37,7 +38,7 @@ public class OxygenLeak extends Emergency {
     
     @Override
     public Object[] requirments(){
-        resource =getPlace().getResources().sub(resource); 
+        //resource =getPlace().getResources().sub(resource);
         Object req[] = new Object[12];
         req[0] = "engineer"; // human
         req[1] = "leakage"; // skill
@@ -72,17 +73,21 @@ public class OxygenLeak extends Emergency {
             unableToResolve(1);
             return false;
         }
-//        if((Boolean)found[2] == false){
-//            unableToResolve(2);
-//            return false;
-//        }
-        assignHuman(found[0]);
-        assignRobot(found[1]);
-        //consume(found[2]);
-        System.out.println("emergency is being resolved...");
-        setEmergencyStatus(EmergencyStatus.Resolving);
-        
-        return true;
+        if((Boolean)found[2] == false){
+            unableToResolve(2);
+            return false;
+        }
+        if((Boolean)found[2] == true){
+            assignHuman(found[0]);
+            assignRobot(found[1]);
+            //Resources r = facilityConsumeRes(found[3]);
+            //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
+            System.out.println("emergency is being resolved...");
+            setEmergencyStatus(EmergencyStatus.Resolving);
+            return true;
+        }
+
+        return false;
     }
     
     
