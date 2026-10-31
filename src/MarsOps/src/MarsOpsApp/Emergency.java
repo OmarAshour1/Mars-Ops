@@ -2,12 +2,6 @@ package MarsOpsApp;
 
 abstract public class Emergency {
    
-    public enum EmergencyStatus {
-        Resolving,
-        Resolved,
-        UnResolved
-    }
-    private EmergencyStatus emergencyStatus;
     private String name;
     private int[] location;
     private Faciliity place ;
@@ -17,7 +11,6 @@ abstract public class Emergency {
     private Resources resources;
 
     public Emergency(String name, int[] location, Faciliity place) {
-        emergencyStatus = EmergencyStatus.UnResolved;
         this.name = name;
         this.location = location;
         this.place = place;
