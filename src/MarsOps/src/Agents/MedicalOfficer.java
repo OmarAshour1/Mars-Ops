@@ -1,4 +1,5 @@
-package MarsOpsApp;
+package Agents;
+
 
 public class MedicalOfficer extends HumanPersonnel {
 

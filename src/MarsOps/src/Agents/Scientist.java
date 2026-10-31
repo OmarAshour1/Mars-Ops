@@ -1,4 +1,4 @@
-package MarsOpsApp;
+package Agents;
 
 public class Scientist extends HumanPersonnel {
 

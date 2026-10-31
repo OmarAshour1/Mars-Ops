@@ -1,4 +1,6 @@
-package MarsOpsApp;
+package Emergencies;
+
+import FacilitiesAndResources.Facility;
 
 public class OxygenLeak extends Emergency {
     private static final double amountLeak = -20;

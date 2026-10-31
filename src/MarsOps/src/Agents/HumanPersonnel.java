@@ -1,4 +1,4 @@
-package MarsOpsApp;
+package Agents;
 
 public class HumanPersonnel {
     private String name;

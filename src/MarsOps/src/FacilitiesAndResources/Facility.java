@@ -1,4 +1,4 @@
-package MarsOpsApp;
+package FacilitiesAndResources;
 
 public class Facility {
     
