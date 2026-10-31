@@ -2,7 +2,7 @@ package MarsOpsApp;
 
 public abstract class Mission {
     public enum MissionStatus {
-        Un_ASSIGNED,
+        UN_ASSIGNED,
         IN_PROGRESS,
         COMPLETED,
         FAILED
@@ -29,9 +29,17 @@ public abstract class Mission {
     public MissionStatus getStatus() {
         return this.Status;
     }
+
+    public abstract boolean missionFaild(int x);
     public abstract boolean startMission(Object [] requirments);
+
     public boolean endMission(){
         this.status=MissionStatus.COMPLETED;
+        return true;
+    }
+
+    public boolean changeStatus(MissionStatus s){
+        this.status=s;
         return true;
     }
 
