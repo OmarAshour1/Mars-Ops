@@ -32,7 +32,11 @@ public abstract class Mission {
     }
 
     protected boolean missionFaild(int x){
-        if(x==0)
+        if (x==-2)
+            System.out.println("Available Dron isn't found");
+        else if(x==-1)
+            System.out.println("Unavailable Human ");
+        else if(x==0)
             System.out.println("the Scientist with the  scientific skill isn't found ");
         else if (x==1)
             System.out.println("the Engineer isn't found ");
