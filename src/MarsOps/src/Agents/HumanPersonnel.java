@@ -25,7 +25,7 @@ public class HumanPersonnel {
     }
 
     // Parameterized Constructor
-    public HumanPersonnel(String name, int identificationNumber, int[] location, String place, String[] skills) {
+    public HumanPersonnel(String name, int identificationNumber, int[] location, Facility place, String[] skills) {
         this.name = name;
         this.identificationNumber = identificationNumber;
         this.healthStatus = true;
@@ -78,7 +78,7 @@ public class HumanPersonnel {
     }
 
     // Protected setters/modifiers
-    public boolean setCurrentLocation(int[] location, String place) {
+    public boolean setCurrentLocation(int[] location, Facility place) {
         if (location == null || location.length != 2) {
             return false;
         }

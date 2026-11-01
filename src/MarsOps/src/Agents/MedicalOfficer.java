@@ -1,13 +1,15 @@
 package Agents;
 
 
+import FacilitiesAndResources.Facility;
+
 public class MedicalOfficer extends HumanPersonnel {
 
     public MedicalOfficer() {
         super();
     }
 
-    public MedicalOfficer(String name, int identificationNumber, int[] location, String place, String[] skills) {
+    public MedicalOfficer(String name, int identificationNumber, int[] location, Facility place, String[] skills) {
         super(name, identificationNumber, location, place, skills);
     }
 
