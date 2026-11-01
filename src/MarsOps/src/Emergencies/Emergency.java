@@ -1,7 +1,9 @@
 package Emergencies;
 
+import Agents.RoboticUnit;
 import FacilitiesAndResources.Facility;
 import Agents.HumanPersonnel;
+import FacilitiesAndResources.Resources;
 
 abstract public class Emergency {
    
@@ -58,7 +60,7 @@ abstract public class Emergency {
         this.robot = robot;
         this.robot.changeAvailability();
         this.robot.decreaseBatteryLevel();
-        this.robot.setCurrentLocation(location , place);
+        this.robot.setCurrentLocation(place);
         return true;
     }
     

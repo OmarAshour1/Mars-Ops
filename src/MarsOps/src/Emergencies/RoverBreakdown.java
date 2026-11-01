@@ -1,6 +1,10 @@
 package Emergencies;
 
+import Agents.ExplorationRover;
+import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
 import FacilitiesAndResources.Facility;
+import FacilitiesAndResources.Resources;
 
 public class RoverBreakdown extends Emergency{
     private static final Resources resource = new Resources(0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 2.0);
@@ -14,7 +18,6 @@ public class RoverBreakdown extends Emergency{
             //change mission status to failed
         }
         // else throw an error
-
     }
 
     @Override
@@ -58,8 +61,8 @@ public class RoverBreakdown extends Emergency{
             return false;
         }
         if((Boolean)found[2] == true){
-            assignHuman(found[0]);
-            assignRobot(found[1]);
+            assignHuman((HumanPersonnel) found[0]);
+            assignRobot((RoboticUnit)found[1]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);

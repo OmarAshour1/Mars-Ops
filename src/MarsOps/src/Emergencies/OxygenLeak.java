@@ -1,39 +1,39 @@
 package Emergencies;
 
+import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
 import FacilitiesAndResources.Facility;
+import FacilitiesAndResources.Resources;
 
 public class OxygenLeak extends Emergency {
-    private static final double amountLeak = -20;
+    private static final Resources amountLeak = new Resources(20.0 , 0.0 , 0.0 , 0.0 ,0.0 ,0.0 , 0.0 );
     private static final Resources resource = new Resources(0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 4.0);
 
     public OxygenLeak(String name, int[] location, Facility place) {
-        //if place is not habbitat throw an error
+        //if place is not habitat throw an error
         super(name, location, place);
-        Boolean ret = place.changeResources("oxygen" ,amountLeak);
-        if(ret) {
-            if (place.getAvailability())
+        Resources ret = place.facilityConsumeResource(amountLeak);
+
+        if (place.getAvailability())
                 place.changeAvailability();
-            if (place.getOperational())
+        if (place.getOperationalStatus())
                 place.changeOperationalStatus();
-        }
-        // else throw an error
+
     }
 
     public OxygenLeak(String name, Facility place) {
-        //if place is not habbitat throw an error
+        //if place is not habitat throw an error
         super(name, place.getLocation(), place);
-        Boolean ret = place.changeResources("oxygen" ,amountLeak);
-        if(ret) {
-            if (place.getAvailability())
-                place.changeAvailability();
-            if (place.getOperational())
-                place.changeOperationalStatus();
-        }
-        // else throw an error
+        Resources ret = place.facilityConsumeResource(amountLeak);
+
+        if (place.getAvailability())
+            place.changeAvailability();
+        if (place.getOperationalStatus())
+            place.changeOperationalStatus();
     }
 
     public double getAmountLeak() {
-        return -1 * amountLeak;
+        return 20;
     }
     
     @Override
@@ -64,29 +64,32 @@ public class OxygenLeak extends Emergency {
     }
     
     @Override
-    public Boolean resolve(Object found[]) {
+    public Boolean resolve(Object[] found) {
         if(found[0] == null){
             unableToResolve(0);
+            Resources ret = super.getPlace().facilityConsumeResource(amountLeak);
             return false;
         }
         if(found[1] == null){
             unableToResolve(1);
+            Resources ret = super.getPlace().facilityConsumeResource(amountLeak);
             return false;
         }
         if((Boolean)found[2] == false){
             unableToResolve(2);
+            Resources ret = super.getPlace().facilityConsumeResource(amountLeak);
             return false;
         }
         if((Boolean)found[2] == true){
-            assignHuman(found[0]);
-            assignRobot(found[1]);
+            assignHuman((HumanPersonnel) found[0]);
+            assignRobot((RoboticUnit)found[1]);
             //Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);
             return true;
         }
-
+        Resources ret = super.getPlace().facilityConsumeResource(amountLeak);
         return false;
     }
     
