@@ -1,15 +1,15 @@
 package Missions;
 import Agents.HumanPersonnel;
-import FacilitiesAndResources.Facilities;
-import FacilitiesAndResources.Resources;
+import Agents.RoboticUnit;
+import FacilitiesAndResources.*;
 
 public class Repair extends Mission{
     private HumanPersonnel personnel;
     private RoboticUnit robot;
     private  static final Resources reqResoruces=new Resources(0,0,0,0,0,0,4); ;
+    private  Equipment equipment;
 
-
-    public Repair(Facilities facility, String name, HumanPersonnel personnel,
+    public Repair(Facility facility, String name, HumanPersonnel personnel,
                    Resources resource, RoboticUnit robot) {
         super(facility, name);
         this.personnel = personnel;
@@ -17,7 +17,7 @@ public class Repair extends Mission{
         this.robot = robot;
     }
 
-    public Repair(Equipments equipment, String name, HumanPersonnel personnel,
+    public Repair(Equipment equipment, String name, HumanPersonnel personnel,
                   Resources resource, RoboticUnit robot) {
         super(null, name);
         this.personnel = personnel;
