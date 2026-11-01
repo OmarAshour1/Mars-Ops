@@ -1,20 +1,19 @@
 package Missions;
-import Agents.HumanPersonnel;
-import FacilitiesAndResources.Facilities;
+import Agents.*;
+import FacilitiesAndResources.*;
 
 public class Exploration extends Mission {
     private HumanPersonnel personal;
     private RoboticUnit robot;
-    private Equipments explorationEquipment;
+    private Equipment explorationEquipment;
     private int[] SpecificRegion = new int[2];
     private static final Resources reqResource = new Resources(0, 0, 0, 2, 4, 0, 0);
 
     public Exploration( String name, HumanPersonnel personal, int[] specificRegion,
-                       Resources resource, Equipments explorationEquipment, RoboticUnit robot) {
+                       Resources resource, Equipment explorationEquipment, RoboticUnit robot) {
         super(null, name);
         this.personal = personal;
         SpecificRegion = specificRegion;
-        this.resource = resource;
         this.explorationEquipment = explorationEquipment;
         this.robot = robot;
     }
@@ -27,7 +26,7 @@ public class Exploration extends Mission {
         return reqResource;
     }
 
-    public Equipments getExplorationEquipment() {
+    public Equipment getExplorationEquipment() {
         return explorationEquipment;
     }
 
@@ -60,7 +59,7 @@ public class Exploration extends Mission {
         return true;
     }
 
-    private boolean assignEquipment(Equipments equipment) {
+    private boolean assignEquipment(Equipment equipment) {
         this.explorationEquipment = equipment;
         return true;
     }
@@ -87,7 +86,7 @@ public class Exploration extends Mission {
         if ((Boolean) found[2] == true) {
             assignHuman((HumanPersonnel) found[0]);
             assignRobot((RoboticUnit) found[1]);
-            assignEquipment((Equipments) found[3]);
+            assignEquipment((Equipment) found[3]);
             //Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("Exploration is being performed...");

@@ -1,6 +1,6 @@
 package Missions;
 import Agents.HumanPersonnel;
-import FacilitiesAndResources.Facilities;
+import FacilitiesAndResources.Facility;
 public abstract class Mission {
     public enum MissionStatus {
         UN_ASSIGNED,
@@ -10,10 +10,10 @@ public abstract class Mission {
     }
     private MissionStatus status ;
     private String name;
-    private Facilities facility;
+    private Facility facility;
     private int [] location =new int[2] ;
 
-    public Mission(Facilities facility, String name) {
+    public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
         status = MissionStatus.UN_ASSIGNED;
@@ -23,7 +23,7 @@ public abstract class Mission {
         return name;
     }
 
-    public Facilities getFacility() {
+    public Facility getFacility() {
         return facility;
     }
 
@@ -32,7 +32,11 @@ public abstract class Mission {
     }
 
     protected boolean missionFaild(int x){
-        if(x==0)
+        if (x==-2)
+            System.out.println("Available Dron isn't found");
+        else if(x==-1)
+            System.out.println("Unavailable Human ");
+        else if(x==0)
             System.out.println("the Scientist with the  scientific skill isn't found ");
         else if (x==1)
             System.out.println("the Engineer isn't found ");
