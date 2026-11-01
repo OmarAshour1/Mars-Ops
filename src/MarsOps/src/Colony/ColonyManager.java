@@ -1,10 +1,12 @@
 package Colony;
+
+
 import Agents.*;
 import Emergencies.*;
 import FacilitiesAndResources.*;
 import Missions.*;
-public class ColonyManager {
 
+public class ColonyManager {
     private Facility[] facilities;
     private HumanPersonnel[] people;
     private RoboticUnit[] robots;
@@ -13,12 +15,16 @@ public class ColonyManager {
     private Mission currentMission;
     private Emergency[] emergencies;
     private int time;
-    public ColonyManager() {
-        people=new HumanPersonnel[8];
-        robots=new RoboticUnit[6];
-        facilities= new Facility[10];
-        facilities[5]= new Hab
-        robots[0]=new ExplorationRover("zeko",100)
 
+    private static final String[] names = {"john" , "harvey" , "thanos" , "peter" , "strange"};
+
+    public ColonyManager() {
+        people = new HumanPersonnel[20];
+        facilities = new Facility[10];
+
+        facilities[0] = new CommunicationStations("CommunicationStation" , new int[]{1, 1}, 10 ,  );
+        people[0] = new HumanPersonnel("peter" , 1 , {1 , 2} , )
     }
 }
+
+
