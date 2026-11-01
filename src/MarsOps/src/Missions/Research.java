@@ -1,25 +1,24 @@
 package Missions;
 
 import Agents.HumanPersonnel;
-import FacilitiesAndResources.Facilities;
-import FacilitiesAndResources.Resources;
+import FacilitiesAndResources.*;
 
 public class Research extends Mission{
     private HumanPersonnel personnel;
     private  static final Resources reqResoruces=new Resources(0,3,2,2,4,0,4);;
-    private Equipments researchEuipment;
+    private Equipment researchEuipment;
 
-    public Research(Facilities facility, String name, HumanPersonnel personnel, Equipments equipment) {
+    public Research(Facility facility, String name, HumanPersonnel personnel, Equipment equipment) {
         super(facility, name);
         this.personnel = personnel;
-        this.equipment = equipment;
+        this.researchEuipment = equipment;
     }
     public Object[] requirments() {
         Object req[] = new Object[7];
         req[0] = "scientist"; // human
         req[1] = "scientific skill"; // skill
         req[2] = null; //robotqt
-        req[3] = "laboratory" // Facility
+        req[3] = "laboratory" ;// Facility
         req[4] = reqResoruces; // Requirment Resources
         req[5] = false; //exploration equipment
         req[6] = true; //scientific equipment
@@ -29,7 +28,7 @@ public class Research extends Mission{
         this.personnel = personnel;
         return true;
     }
-    private boolean assignEquipment(Equipments equipment) {
+    private boolean assignEquipment(Equipment equipment) {
         this.researchEuipment = equipment;
         return true;
     }
@@ -50,7 +49,7 @@ public class Research extends Mission{
         }
         if ((Boolean) found[2] == true) {
             assignHuman((HumanPersonnel) found[0]);
-            assignEquipment((Equipments) found[3]);
+            assignEquipment((Equipment) found[3]);
             //Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("Research is being performed...");

@@ -10,6 +10,7 @@ public class Environment {
         this.dust = false;
         this.commDisruption = false;
     }
+
     public boolean changeToDust() {
         this.dust = true;
         this.normalCondition = false;
