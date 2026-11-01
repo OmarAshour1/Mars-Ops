@@ -1,31 +1,28 @@
 package FacilitiesAndResources;
 
 import Agents.HumanPersonnel;
-
 public class Facility {
     private String name ;
     private int[] location;
-    private int capacity;
+    private static final int capacity=10;
     private Boolean operationalStatus;
     private Boolean availability;
     private Resources resources;
     private Resources usableRes;
-    private Equipment[] equipments;
+    protected Equipment[] equipments;
     protected static final Resources threshold = new Resources(100.0 , 30.0 , 25.0 , 20.0 , 15.0 , 10.0 , 8.0);
     private HumanPersonnel[] personnels;
+    private int numberOfPersonnels;
 
-    public Facility(String name, int[] location, int capacity,Equipment[] equipments, HumanPersonnel[] personnels , Resources resources) {
+    public Facility(String name, int[] location) {
         this.name = name;
         this.location = location;
-        this.capacity = capacity;
         this.operationalStatus = true;
         this.availability = true;
-        this.equipments = equipments;
-        if(personnels.length <= this.capacity)
-            this.personnels = personnels;
-        //else throw an error
+        this.personnels = new HumanPersonnel[capacity];
+        this.numberOfPersonnels = 0;
         if(resources.comp(threshold)) {
-            this.resources = resources;
+            this.resources = new Resources(900,100,200,200,1000,500,500);
             this.usableRes = resources.sub(threshold);
         }
         //else throw an error
@@ -41,6 +38,16 @@ public class Facility {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    public Boolean addPersonnel(HumanPersonnel h){
+        if(numberOfPersonnels==capacity){
+            System.out.println("the Capacity is full");
+            return false;
+        }
+        personnels[numberOfPersonnels] = h;
+        numberOfPersonnels++;
+        return true;
     }
 
     public Boolean getOperationalStatus() {
@@ -64,11 +71,11 @@ public class Facility {
     }
 
     public int getHumanCount(){
-        return personnels.length;
+        return numberOfPersonnels;
     }
 
     public Boolean canAcceptHuman(){
-        return personnels.length < capacity;
+        return numberOfPersonnels < capacity;
     }
 
     public Boolean changeAvailability(){

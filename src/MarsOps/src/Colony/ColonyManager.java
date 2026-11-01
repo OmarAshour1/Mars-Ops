@@ -17,7 +17,7 @@ public class ColonyManager {
         people=new HumanPersonnel[8];
         robots=new RoboticUnit[6];
         facilities= new Facility[10];
-        facilities[5]= new Hab
+        facilities[5]= new Habitat("kafr abdo",new int[]{5, 5},)
         robots[0]=new ExplorationRover("zeko",100)
 
     }
