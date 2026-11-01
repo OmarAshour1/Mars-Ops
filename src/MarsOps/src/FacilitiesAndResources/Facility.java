@@ -1,10 +1,11 @@
 package FacilitiesAndResources;
 
 import Agents.HumanPersonnel;
+
 public class Facility {
     private String name ;
     private int[] location;
-    private static final int capacity=10;
+    private static final int capacity = 10;
     private Boolean operationalStatus;
     private Boolean availability;
     private Resources resources;
@@ -40,16 +41,6 @@ public class Facility {
         return capacity;
     }
 
-    public Boolean addPersonnel(HumanPersonnel h){
-        if(numberOfPersonnels==capacity){
-            System.out.println("the Capacity is full");
-            return false;
-        }
-        personnels[numberOfPersonnels] = h;
-        numberOfPersonnels++;
-        return true;
-    }
-
     public Boolean getOperationalStatus() {
         return operationalStatus;
     }
@@ -64,6 +55,16 @@ public class Facility {
 
     public int getEquipmentCount(){
         return equipments.length;
+    }
+
+    public Boolean addPersonnel(HumanPersonnel h){
+        if(numberOfPersonnels < capacity) {
+            personnels[numberOfPersonnels] = h;
+            numberOfPersonnels++;
+            return true;
+        }
+        System.out.println("the Capacity is full");
+        return false;
     }
 
     public HumanPersonnel[] getPersonnels() {
