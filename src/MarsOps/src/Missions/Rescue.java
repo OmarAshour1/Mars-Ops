@@ -1,8 +1,8 @@
 package Missions;
 import Agents.HumanPersonnel;
-import FacilitiesAndResources.Facilities;
+import FacilitiesAndResources.Facility;
 import FacilitiesAndResources.Resources;
-
+import Agents.RoboticUnit;
 import java.awt.*;
 
 public class Rescue extends Mission{
@@ -11,9 +11,9 @@ public class Rescue extends Mission{
     private boolean commCap;
     private int [] location= new int[2];
     private static Resources reqResources=new Resources(0,0,0,2,4,0,4);
-    public Rescue(Facilities facility, String name, HumanPersonnel personnel,
+    public Rescue(Facility x, String name, HumanPersonnel personnel,
                   int[] location, boolean commCap, RoboticUnit robot) {
-        super(facility, name);
+        super(x, name);
         this.personnel = personnel;
         this.location = location;
         this.commCap = commCap;
@@ -24,7 +24,7 @@ public class Rescue extends Mission{
         req[0] = null; // human if null meaning any type of the personnel
         req[1] = "rescue skill"; // skill
         req[2] = "dron"; //robotqt
-        req[3] = "laboratory" // Facility
+        req[3] = "laboratory"; // Facility
         req[4] =reqResources ; // Requirment Resources
         req[5] = false; //exploration equipment
         req[6] = false; //scientific equipment
@@ -49,6 +49,16 @@ public class Rescue extends Mission{
 
     public static Resources getReqResources() {
         return reqResources;
+    }
+
+    private boolean assignHuman(HumanPersonnel personnel) {
+        this.personnel = personnel;
+        return true;
+    }
+
+    private boolean assignRobot(RoboticUnit robot) {
+        this.robot = robot;
+        return true;
     }
 
     public boolean startMission(Object[] found) {

@@ -1,6 +1,6 @@
 package Missions;
 import Agents.HumanPersonnel;
-import FacilitiesAndResources.Facilities;
+import FacilitiesAndResources.Facility;
 public abstract class Mission {
     public enum MissionStatus {
         UN_ASSIGNED,
@@ -10,10 +10,10 @@ public abstract class Mission {
     }
     private MissionStatus status ;
     private String name;
-    private Facilities facility;
+    private Facility facility;
     private int [] location =new int[2] ;
 
-    public Mission(Facilities facility, String name) {
+    public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
         status = MissionStatus.UN_ASSIGNED;
@@ -23,7 +23,7 @@ public abstract class Mission {
         return name;
     }
 
-    public Facilities getFacility() {
+    public Facility getFacility() {
         return facility;
     }
 
