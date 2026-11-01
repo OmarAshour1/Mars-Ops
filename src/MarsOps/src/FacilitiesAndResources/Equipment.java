@@ -24,6 +24,11 @@ public class Equipment {
         return true;
     }
 
+    public Boolean makeUnavailable(){
+        this.availability = false;
+        return true;
+    }
+
     public boolean changeStatus() {
         status = !status;
         if (!status) availability = false;

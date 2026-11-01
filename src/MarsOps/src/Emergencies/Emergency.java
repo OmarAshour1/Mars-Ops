@@ -49,7 +49,7 @@ abstract public class Emergency {
             return false;
         personnel = person;
         personnel.changeAvailability();
-        personnel.increaseFatigueLevel(1);
+        personnel.increaseFatigueLevel(5);
         personnel.setCurrentLocation(location , place);
         return true;
     }
@@ -59,7 +59,7 @@ abstract public class Emergency {
             return false;
         this.robot = robot;
         this.robot.changeAvailability();
-        this.robot.decreaseBatteryLevel();
+        this.robot.consumeBattery(10);
         this.robot.setCurrentLocation(place);
         return true;
     }
