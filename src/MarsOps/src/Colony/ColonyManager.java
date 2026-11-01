@@ -21,7 +21,8 @@ public class ColonyManager {
     public ColonyManager() {
         people = new HumanPersonnel[20];
         facilities = new Facility[10];
-        facilities[0] = new
+
+        facilities[0] = new CommunicationStations("CommunicationStation" , new int[]{1, 1}, 10 ,  );
         people[0] = new HumanPersonnel("peter" , 1 , {1 , 2} , )
     }
 }
