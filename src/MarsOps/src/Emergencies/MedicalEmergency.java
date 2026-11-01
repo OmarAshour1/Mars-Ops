@@ -1,7 +1,9 @@
 package Emergencies;
 
 import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
 import FacilitiesAndResources.Facility;
+import FacilitiesAndResources.Resources;
 
 public class MedicalEmergency extends Emergency{
     private HumanPersonnel patient;
@@ -31,7 +33,7 @@ public class MedicalEmergency extends Emergency{
 
     @Override
     public Object[] requirments(){
-        Object req[] = new Object[12];
+        Object[] req = new Object[12];
         req[0] = "medicalofficer"; // human
         req[1] = "firstaid"; // skill
         req[2] = "rover"; //robot
@@ -59,11 +61,7 @@ public class MedicalEmergency extends Emergency{
     }
 
     @Override
-    public Boolean resolve(Object found[]) {
-        if(!place.getOperationalStatus()) {
-            unableToResolve(3);
-            return false;
-        }
+    public Boolean resolve(Object[] found) {
         if(found[0] == null){
             unableToResolve(0);
             return false;
@@ -76,10 +74,14 @@ public class MedicalEmergency extends Emergency{
             unableToResolve(2);
             return false;
         }
+        if(!super.getPlace().getOperationalStatus()) {
+            unableToResolve(3);
+            return false;
+        }
         if((Boolean)found[2] == true){
-            assignHuman(found[0]);
-            assignRobot(found[1]);
-            //Resources r = facilityConsumeRes(found[3]);
+            assignHuman((HumanPersonnel) found[0]);
+            assignRobot((RoboticUnit)found[1]);
+            Resources r = super.getPlace().facilityConsumeResource((Resources)found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);
