@@ -1,6 +1,10 @@
 package Emergencies;
 
+import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
+import FacilitiesAndResources.Equipment;
 import FacilitiesAndResources.Facility;
+import FacilitiesAndResources.Resources;
 
 public class Fire extends Emergency{
     private static final Resources resource = new Resources(0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 10.0 , 0.0);
@@ -11,14 +15,14 @@ public class Fire extends Emergency{
         super(name, location , place);
         Equipment eqs[] = place.getEquipments();
         for(Equipment u : eqs){
-            if(u.getStatus){
+            if(u.getStatus()){
                 u.changeStatus();
                 u.makeUnavailable();
             }
         }
         if (place.getAvailability())
             place.changeAvailability();
-        if (place.getOperational())
+        if (place.getOperationalStatus())
             place.changeOperationalStatus();
 
         // else throw an error
@@ -27,9 +31,9 @@ public class Fire extends Emergency{
     public Fire(String name,Facility place) {
         //if place is not Lab throw an error
         super(name, place.getLocation() , place);
-        Equipment eqs[] = place.getEquipments();
+        Equipment[] eqs = place.getEquipments();
         for(Equipment u : eqs){
-            if(u.getStatus){
+            if(u.getStatus()){
                 u.changeStatus();
                 u.makeUnavailable();
             }
@@ -38,7 +42,7 @@ public class Fire extends Emergency{
         if (place.getAvailability())
             place.changeAvailability();
 
-        if (place.getOperational())
+        if (place.getOperationalStatus())
             place.changeOperationalStatus();
 
         // else throw an error
@@ -86,8 +90,8 @@ public class Fire extends Emergency{
             return false;
         }
         if((Boolean)found[2] == true){
-            assignHuman(found[0]);
-            assignRobot(found[1]);
+            assignHuman((HumanPersonnel) found[0]);
+            assignRobot((RoboticUnit) found[1]);
             //Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");

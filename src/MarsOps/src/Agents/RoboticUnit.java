@@ -60,24 +60,24 @@ public abstract class RoboticUnit {
         return true;
     }
 
-    protected boolean changeAvailability() {
+    public boolean changeAvailability() {
         if (!healthStatus) return false;
         availability = !availability;
         return true;
     }
 
-    protected boolean changeHealthStatus() {
+    public boolean changeHealthStatus() {
         healthStatus = !healthStatus;
         if (!healthStatus) availability = false;
         return healthStatus;
     }
 
-    protected boolean setCurrentLocation(Facility location) {
+    public boolean setCurrentLocation(Facility location) {
         currentLocation = location;
         return true;
     }
 
-    protected boolean repair() {
+    public boolean repair() {
         if (healthStatus) return false;
         healthStatus = true;
         return true;
@@ -93,5 +93,11 @@ public abstract class RoboticUnit {
 
     public String toString() {
         return name + " [battery=" + batteryLevel + ", healthy=" + healthStatus + ", available=" + availability + "]";
+    }
+
+    public boolean performAction(int cost, String message) {
+        if (!isOperational() || !consumeBattery(cost)) return false;
+        System.out.println(name + ": " + message);
+        return true;
     }
 }
