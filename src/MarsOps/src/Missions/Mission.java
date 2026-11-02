@@ -1,5 +1,6 @@
 package Missions;
 import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
 import FacilitiesAndResources.Facility;
 public abstract class Mission {
     public enum MissionStatus {
@@ -11,16 +12,36 @@ public abstract class Mission {
     private MissionStatus status ;
     private String name;
     private Facility facility;
+    protected HumanPersonnel person;
+    protected RoboticUnit robot;
     private int [] location =new int[2] ;
+    private int timer;
 
     public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
         status = MissionStatus.UN_ASSIGNED;
+        timer = 0;
+    }
+
+    public void increaseTimer(int t){
+        this.timer += t;
+    }
+
+    public int getTimer() {
+        return timer;
     }
 
     public String getName() {
         return name;
+    }
+
+    public HumanPersonnel getPerson() {
+        return person;
+    }
+
+    public RoboticUnit getRobot() {
+        return robot;
     }
 
     public Facility getFacility() {
@@ -61,6 +82,12 @@ public abstract class Mission {
 
     public boolean changeStatus(MissionStatus s){
         this.status=s;
+        return true;
+    }
+
+    public boolean stopMission(){
+        System.out.println("Mission Failed");
+        this.status=MissionStatus.FAILED;
         return true;
     }
 

@@ -62,6 +62,19 @@ public class OxygenLeak extends Emergency {
 
         }
     }
+
+    @Override
+    public Boolean resolved() {
+        System.out.println("emergency is resolved...");
+        setEmergencyStatus(EmergencyStatus.Resolved);
+        super.getPlace().changeAvailability();
+        super.getPlace().changeOperationalStatus();
+
+        super.getPersonnel().changeAvailability();
+        super.getRobot().changeAvailability();
+
+        return true;
+    }
     
     @Override
     public Boolean resolve(Object[] found) {

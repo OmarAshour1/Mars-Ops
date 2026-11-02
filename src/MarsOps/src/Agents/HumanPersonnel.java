@@ -1,5 +1,6 @@
 package Agents;
 
+import Emergencies.Emergency;
 import FacilitiesAndResources.Facility;
 
 public class HumanPersonnel {
@@ -73,8 +74,9 @@ public class HumanPersonnel {
         return this.availability && this.healthStatus;
     }
 
-    public Boolean canResolve(Object emergency) {
-        return this.availability && this.healthStatus;
+    public Boolean canResolve(Emergency emergency) {
+        Object[] req = emergency.requirments();
+
     }
 
     // Protected setters/modifiers
@@ -95,6 +97,12 @@ public class HumanPersonnel {
     public boolean increaseFatigueLevel(int level) {
         if (level < 0) return false;
         this.fatigueLevel = Math.min(5, this.fatigueLevel + level);
+        return true;
+    }
+
+    public boolean decreaseFatigueLevel(int level) {
+        if (level < 0) return false;
+        this.fatigueLevel = Math.max(0, this.fatigueLevel - level);
         return true;
     }
 

@@ -1,8 +1,8 @@
 package Agents;
 
-import Emergencies.Emergency;
-import FacilitiesAndResources.Facility;
-import Missions.Mission;
+import Emergencies.*;
+import FacilitiesAndResources.*;
+import Missions.*;
 
 public abstract class RoboticUnit {
 
@@ -12,8 +12,8 @@ public abstract class RoboticUnit {
     private Facility currentLocation;
     private boolean availability;
     private String[] skills;
-
-    public RoboticUnit(String name, int batteryLevel, Facility currentLocation, String[] skills) {
+    private int [] location=new int[2];
+    public RoboticUnit(String name, int batteryLevel, Facility currentLocation, String[] skills,int []location) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
@@ -29,6 +29,7 @@ public abstract class RoboticUnit {
         this.skills = skills.clone();
         this.healthStatus = true;
         this.availability = true;
+        this.location=location;
     }
 
     public String getName() { return name; }
@@ -45,7 +46,7 @@ public abstract class RoboticUnit {
     }
 
     public boolean isOperational() {
-        return healthStatus && availability && batteryLevel >= 10;
+        return healthStatus  && batteryLevel >= 10;
     }
 
     public boolean chargeBattery(int amount) {
@@ -84,11 +85,11 @@ public abstract class RoboticUnit {
     }
 
     public boolean canPerform(Mission mission) {
-        return mission != null && isOperational() && hasSkill(mission.getRequiredCapability());
+        return mission != null && isOperational() && hasSkill(mission.requirments());
     }
 
     public boolean canResolve(Emergency emergency) {
-        return emergency != null && isOperational() && hasSkill(emergency.getRequiredCapability());
+        return emergency != null && isOperational() && hasSkill(emergency.requirments());
     }
 
     public String toString() {

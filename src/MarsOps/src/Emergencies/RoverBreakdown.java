@@ -47,6 +47,19 @@ public class RoverBreakdown extends Emergency{
     }
 
     @Override
+    public Boolean resolved() {
+        System.out.println("emergency is resolved...");
+        setEmergencyStatus(EmergencyStatus.Resolved);
+        this.rover.changeHealthStatus();
+        this.rover.changeAvailability();
+
+        super.getPersonnel().changeAvailability();
+        super.getRobot().changeAvailability();
+
+        return true;
+    }
+
+    @Override
     public Boolean resolve(Object found[]) {
         if(found[0] == null){
             unableToResolve(0);

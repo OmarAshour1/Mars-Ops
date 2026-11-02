@@ -29,7 +29,6 @@ public class Fire extends Emergency{
     }
 
     public Fire(String name,Facility place) {
-        //if place is not Lab throw an error
         super(name, place.getLocation() , place);
         Equipment[] eqs = place.getEquipments();
         for(Equipment u : eqs){
@@ -62,6 +61,25 @@ public class Fire extends Emergency{
         return req;
     }
 
+    @Override
+    public Boolean resolved() {
+        System.out.println("emergency is resolved...");
+        setEmergencyStatus(EmergencyStatus.Resolved);
+        super.getPlace().changeAvailability();
+        super.getPlace().changeOperationalStatus();
+        for(Equipment u : getPlace().getEquipments()){
+            if(!u.getStatus()){
+                u.changeStatus();
+                u.changeAvailability();
+            }
+        }
+
+        super.getPersonnel().changeAvailability();
+        super.getRobot().changeAvailability();
+
+        return true;
+    }
+
     private void unableToResolve(int x){
         if(x == 0){
             System.out.println("We can't find any available or even capable Person.....");
@@ -92,7 +110,7 @@ public class Fire extends Emergency{
         if((Boolean)found[2] == true){
             assignHuman((HumanPersonnel) found[0]);
             assignRobot((RoboticUnit) found[1]);
-            //Resources r = facilityConsumeRes(found[3]);
+            Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);
