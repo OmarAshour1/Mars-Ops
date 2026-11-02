@@ -1,5 +1,6 @@
 package Missions;
 import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
 import FacilitiesAndResources.Facility;
 public abstract class Mission {
     public enum MissionStatus {
@@ -8,11 +9,12 @@ public abstract class Mission {
         COMPLETED,
         FAILED
     }
+    protected RoboticUnit robot;
     private MissionStatus status ;
     private String name;
     private Facility facility;
     private int [] location =new int[2] ;
-
+    protected HumanPersonnel personnel;
     public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
@@ -55,15 +57,24 @@ public abstract class Mission {
     public abstract boolean startMission(Object [] requirments);
 
     public boolean endMission(){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
         this.status=MissionStatus.COMPLETED;
         return true;
     }
-
+    public abstract Object[] requirments();
     public boolean changeStatus(MissionStatus s){
         this.status=s;
         return true;
     }
 
+    public boolean stopMission(){
+        System.out.println("Mission Failed");
+        this.status=MissionStatus.FAILED;
+        return true;
+    }
 
 
 }

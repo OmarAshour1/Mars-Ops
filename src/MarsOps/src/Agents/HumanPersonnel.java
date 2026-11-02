@@ -1,6 +1,9 @@
 package Agents;
 
 import FacilitiesAndResources.Facility;
+import Missions.Mission;
+
+import javax.swing.*;
 
 public class HumanPersonnel {
     private String name;
@@ -11,6 +14,7 @@ public class HumanPersonnel {
     private String[] skills;
     private int fatigueLevel;
     private boolean availability;
+    private String type;
 
     // Default Constructor
     public HumanPersonnel() {
@@ -25,7 +29,7 @@ public class HumanPersonnel {
     }
 
     // Parameterized Constructor
-    public HumanPersonnel(String name, int identificationNumber, int[] location, Facility place, String[] skills) {
+    public HumanPersonnel(String name, int identificationNumber, int[] location, Facility place, String[] skills,String type) {
         this.name = name;
         this.identificationNumber = identificationNumber;
         this.healthStatus = true;
@@ -34,6 +38,7 @@ public class HumanPersonnel {
         this.skills = skills;
         this.fatigueLevel = 0;
         this.availability = true;
+        this.type=type;
     }
 
     // Getters
@@ -69,8 +74,18 @@ public class HumanPersonnel {
         return availability;
     }
 
-    public Boolean canPerform(Object mission) {
-        return this.availability && this.healthStatus;
+    public boolean checkSkill(String s){
+        for (String x:this.skills){
+            if(x.equals(s))
+                return true;
+        }
+        return false;
+    }
+    public Boolean canPerform(Mission mission) {
+            if(!this.getAvailability()||!this.getHealthStatus())
+                return false;
+            Object [] req=mission.requirments();
+            return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
     public Boolean canResolve(Object emergency) {
@@ -90,6 +105,22 @@ public class HumanPersonnel {
     public boolean changeHealthStatus(boolean status) {
         this.healthStatus = status;
         return true;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int[] getLocation() {
+        return location;
+    }
+
+    public boolean isHealthStatus() {
+        return healthStatus;
     }
 
     public boolean increaseFatigueLevel(int level) {

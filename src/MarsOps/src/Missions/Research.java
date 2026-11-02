@@ -1,23 +1,22 @@
 package Missions;
-
 import Agents.HumanPersonnel;
 import FacilitiesAndResources.*;
 
 public class Research extends Mission{
-    private HumanPersonnel personnel;
     private  static final Resources reqResoruces=new Resources(0,3,2,2,4,0,4);;
     private Equipment researchEuipment;
 
-    public Research(Facility facility, String name, HumanPersonnel personnel, Equipment equipment) {
-        super(facility, name);
-        this.personnel = personnel;
-        this.researchEuipment = equipment;
+    public Research( ) {
+        super(null, "research");
+        this.personnel = null;
+        this.researchEuipment = null ;
+        this.robot=null;
     }
     public Object[] requirments() {
         Object req[] = new Object[7];
         req[0] = "scientist"; // human
         req[1] = "scientific skill"; // skill
-        req[2] = null; //robotqt
+        req[2] = "repair robot"; //robotqt
         req[3] = "laboratory" ;// Facility
         req[4] = reqResoruces; // Requirment Resources
         req[5] = false; //exploration equipment

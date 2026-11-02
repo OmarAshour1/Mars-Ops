@@ -6,18 +6,16 @@ import Agents.RoboticUnit;
 import java.awt.*;
 
 public class Rescue extends Mission{
-    private HumanPersonnel personnel;
     private  RoboticUnit robot;
     private boolean commCap;
     private int [] location= new int[2];
     private static Resources reqResources=new Resources(0,0,0,2,4,0,4);
-    public Rescue(Facility x, String name, HumanPersonnel personnel,
-                  int[] location, boolean commCap, RoboticUnit robot) {
-        super(x, name);
-        this.personnel = personnel;
+    public Rescue(int[] location, boolean commCap) {
+        super(null, "rescue");
+        this.personnel = null;
         this.location = location;
         this.commCap = commCap;
-        this.robot = robot;
+        this.robot = null;
     }
     public Object[] requirments() {
         Object req[] = new Object[7];

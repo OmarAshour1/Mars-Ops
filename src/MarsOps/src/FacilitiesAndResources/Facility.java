@@ -67,6 +67,14 @@ public class Facility {
         return false;
     }
 
+    public Resources getUsableRes() {
+        return usableRes;
+    }
+
+    public Resources getResources() {
+        return resources;
+    }
+
     public HumanPersonnel[] getPersonnels() {
         return personnels;
     }
