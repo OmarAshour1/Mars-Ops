@@ -4,25 +4,22 @@ import Agents.RoboticUnit;
 import FacilitiesAndResources.*;
 
 public class Repair extends Mission{
-    private HumanPersonnel personnel;
     private RoboticUnit robot;
     private  static final Resources reqResoruces=new Resources(0,0,0,0,0,0,4); ;
     private  Equipment equipment;
 
-    public Repair(Facility facility, String name, HumanPersonnel personnel,
-                   Resources resource, RoboticUnit robot) {
-        super(facility, name);
-        this.personnel = personnel;
+    public Repair(Facility facility) {
+        super(facility, "repair");
+        this.personnel = null;
         this.equipment = null;
-        this.robot = robot;
+        this.robot = null;
     }
 
-    public Repair(Equipment equipment, String name, HumanPersonnel personnel,
-                  Resources resource, RoboticUnit robot) {
-        super(null, name);
-        this.personnel = personnel;
+    public Repair(Equipment equipment) {
+        super(null, "repair");
+        this.personnel = null;
         this.equipment = equipment;
-        this.robot = robot;
+        this.robot = null;
     }
 
     public HumanPersonnel getPersonnel() {

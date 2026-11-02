@@ -9,39 +9,20 @@ public abstract class Mission {
         COMPLETED,
         FAILED
     }
+    protected RoboticUnit robot;
     private MissionStatus status ;
     private String name;
     private Facility facility;
-    protected HumanPersonnel person;
-    protected RoboticUnit robot;
     private int [] location =new int[2] ;
-    private int timer;
-
+    protected HumanPersonnel personnel;
     public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
         status = MissionStatus.UN_ASSIGNED;
-        timer = 0;
-    }
-
-    public void increaseTimer(int t){
-        this.timer += t;
-    }
-
-    public int getTimer() {
-        return timer;
     }
 
     public String getName() {
         return name;
-    }
-
-    public HumanPersonnel getPerson() {
-        return person;
-    }
-
-    public RoboticUnit getRobot() {
-        return robot;
     }
 
     public Facility getFacility() {
@@ -76,10 +57,14 @@ public abstract class Mission {
     public abstract boolean startMission(Object [] requirments);
 
     public boolean endMission(){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
         this.status=MissionStatus.COMPLETED;
         return true;
     }
-
+    public abstract Object[] requirments();
     public boolean changeStatus(MissionStatus s){
         this.status=s;
         return true;
@@ -90,7 +75,6 @@ public abstract class Mission {
         this.status=MissionStatus.FAILED;
         return true;
     }
-
 
 
 }

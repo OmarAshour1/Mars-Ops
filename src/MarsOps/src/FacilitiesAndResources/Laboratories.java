@@ -10,5 +10,4 @@ public class Laboratories extends Facility{
         equipments[2] = new ScientificEquipment("ScientificEquipment");
         equipments[1] = new ExplorationEquipment("ExplorationEquipment");
     }
-
 }
