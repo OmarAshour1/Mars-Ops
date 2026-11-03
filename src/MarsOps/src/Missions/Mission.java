@@ -79,6 +79,6 @@ public abstract class Mission {
         this.status=MissionStatus.FAILED;
         return true;
     }
-
+    public abstract boolean endMission();
 
 }
