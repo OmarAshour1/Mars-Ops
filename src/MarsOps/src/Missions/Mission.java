@@ -67,7 +67,7 @@ public abstract class Mission {
         else if (x==5)
             System.out.println("the equipment isn't found ");
         else
-            return false;
+            System.out.println("facility not found");;
         return true;
     }
     public abstract boolean startMission(Object [] requirments);

@@ -85,7 +85,7 @@ public class Rescue extends Mission{
             assignRobot((RoboticUnit)found[1]);
             //Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
-            System.out.println("Research is being performed...");
+            System.out.println("Rescue is being performed...");
             this.changeStatus(MissionStatus.IN_PROGRESS);
             return true;
         }

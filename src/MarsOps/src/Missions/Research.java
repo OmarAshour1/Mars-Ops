@@ -32,6 +32,12 @@ public class Research extends Mission{
         this.researchEuipment = equipment;
         return true;
     }
+
+    private boolean assignRobot(RoboticUnit robot) {
+        this.robot = robot;
+        return true;
+    }
+
     @Override
     public boolean startMission(Object[] found) {
         // 0 --> person  1--> robot 2--> resources  3--> equipment 4-->facility
@@ -43,6 +49,11 @@ public class Research extends Mission{
             missionFaild(5);
             return false;
         }
+
+        if(found[4]==null){
+            missionFaild(7);
+            return false;
+        }
         if ((boolean) found[2] == false) {
             missionFaild(4);
             return false;
@@ -50,6 +61,7 @@ public class Research extends Mission{
         if ((Boolean) found[2] == true) {
             assignHuman((HumanPersonnel) found[0]);
             assignEquipment((Equipment) found[3]);
+            assignRobot((RoboticUnit)found[1]);
             //Resources r = facilityConsumeRes(found[3]);
             //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("Research is being performed...");

@@ -23,7 +23,7 @@ public class RoverBreakdown extends Emergency{
     public Object[] requirments(){
         Object req[] = new Object[12];
         req[0] = "engineer"; // human
-        req[1] = "mechanical skills"; // skill
+        req[1] = "repairing skill"; // skill
         req[2] = "repairrobot"; //robot
         req[3] = null; //facility
         req[4] = resource; //resources

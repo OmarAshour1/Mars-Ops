@@ -32,16 +32,16 @@ public class ColonyManager {
         robots = new RoboticUnit[6];
         equipments = new Equipment[4];
 
-        facilities[0] = new PowerStations("PowerStation1", new int[]{3, 3});
-        facilities[1] = new PowerStations("PowerStation1", new int[]{4, 4});
-        facilities[2] = new StorageFacilities("StorageFacility1", new int[]{5, 8});
-        facilities[3] = new StorageFacilities("StorageFacility2", new int[]{5, 9});
-        facilities[4] = new Laboratories("Laboratory", new int[]{2, 3});
-        facilities[5] = new Habitat("Habitat1", new int[]{5, 5});
-        facilities[6] = new Habitat("Habitat2", new int[]{5, 6});
-        facilities[7] = new Habitat("Habitat3", new int[]{5, 7});
-        facilities[8] = new CommunicationStations("CommunicationStation1", new int[]{1, 1});
-        facilities[9] = new CommunicationStations("CommunicationStation2", new int[]{2, 2});
+        facilities[0] = new PowerStations("powerStation1", new int[]{3, 3});
+        facilities[1] = new PowerStations("powerStation1", new int[]{4, 4});
+        facilities[2] = new StorageFacilities("storageFacility1", new int[]{5, 8});
+        facilities[3] = new StorageFacilities("storageFacility2", new int[]{5, 9});
+        facilities[4] = new Laboratories("laboratory", new int[]{2, 3});
+        facilities[5] = new Habitat("habitat1", new int[]{5, 5});
+        facilities[6] = new Habitat("habitat2", new int[]{5, 6});
+        facilities[7] = new Habitat("habitat3", new int[]{5, 7});
+        facilities[8] = new CommunicationStations("communicationStation1", new int[]{1, 1});
+        facilities[9] = new CommunicationStations("communicationStation2", new int[]{2, 2});
 
         robots[0] = new ExplorationRover("zeko", 100, null, new int[]{10, 10});
         robots[1] = new ExplorationRover("beko", 100, null, new int[]{10, 20});
@@ -67,8 +67,8 @@ public class ColonyManager {
         colonyWidRes = new Resources(0, 0, 0, 0, 0, 0, 0);
         usableResources = new Resources(0, 0, 0, 0, 0, 0, 0);
         for (Facility facility : facilities) {
-            colonyWidRes.add(facility.getResources());
-            usableResources.add(facility.getResources());
+            colonyWidRes = colonyWidRes.add(facility.getResources());
+            usableResources = usableResources.add(facility.getUsableRes());
         }
         currentMission = null;
         emergencies = new Emergency[5];
@@ -308,29 +308,35 @@ public class ColonyManager {
         colonyWidRes = new Resources(0,0,0,0,0,0,0);
         usableResources = new Resources(0 , 0 , 0 , 0, 0, 0,0);
         for (Facility facility:facilities){
-            colonyWidRes.add(facility.getResources());
-            usableResources.add(facility.getUsableRes());
+            colonyWidRes = colonyWidRes.add(facility.getResources());
+            usableResources = usableResources.add(facility.getUsableRes());
         }
     }
 
     public void advanceTime(int t){
         if(currentMission != null){
             if(currentMission.getStatus() == Mission.MissionStatus.IN_PROGRESS) {
-                if (!currentMission.getPerson().getHealthStatus()) {
+                if (currentMission.getPerson() != null && !currentMission.getPerson().getHealthStatus()) {
                     currentMission.stopMission();
-                } else if (!currentMission.getRobot().isOperational()) {
+                    currentMission=null;
+                } else if (currentMission.getRobot() != null &&!currentMission.getRobot().isOperational()) {
                     currentMission.stopMission();
-                } else if (!currentMission.getFacility().getOperationalStatus()) {
+                    currentMission=null;
+                } else if (currentMission.getFacility() != null&&!currentMission.getFacility().getOperationalStatus()) {
                     currentMission.stopMission();
+                    currentMission=null;
                 } else if (Objects.equals(currentMission.getName(), "rescue") && env.isCommDisruption()) {
                     currentMission.stopMission();
+                    currentMission=null;
                 } else if (Objects.equals(currentMission.getName(), "exploration") && env.isDust()) {
                     currentMission.stopMission();
+                    currentMission=null;
                 }
                 if (currentMission.getStatus() == Mission.MissionStatus.IN_PROGRESS)
                     currentMission.increaseTimer(t);
                 if (currentMission.getTimer() >= 3) {
                     currentMission.endMission();
+                    currentMission=null;
                 }
             }
         }

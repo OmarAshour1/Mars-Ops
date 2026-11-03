@@ -3,7 +3,7 @@ import Agents.*;
 import FacilitiesAndResources.*;
 
 public class Exploration extends Mission {
-    private HumanPersonnel personal;
+
     private RoboticUnit robot;
     private Equipment explorationEquipment;
     private boolean dust;
@@ -12,7 +12,6 @@ public class Exploration extends Mission {
 
     public Exploration( int[] specificRegion, boolean dust) {
         super(null, "exploration");
-        this.personal = null;
         SpecificRegion = specificRegion;
         this.explorationEquipment = null;
         this.robot = null;
@@ -36,7 +35,7 @@ public class Exploration extends Mission {
     }
 
     public HumanPersonnel getPersonal() {
-        return personal;
+        return personnel;
     }
 
     public Object[] requirments() {
@@ -52,7 +51,7 @@ public class Exploration extends Mission {
     }
 
     private boolean assignHuman(HumanPersonnel personal) {
-        this.personal = personal;
+        this.personnel = personal;
         return true;
     }
 
@@ -69,7 +68,7 @@ public class Exploration extends Mission {
     @Override
     public boolean startMission(Object[] found) {
         // 0 --> person  1--> robot 2--> resources  3--> equipment
-        if(this.dust=true){
+        if(this.dust==true){
             System.out.printf(" Invaild Mission because dust storm");
             return false;
         }

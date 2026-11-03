@@ -36,7 +36,7 @@ public class Repair extends Mission{
         Object req[] = new Object[7];
         req[0] = "engineer"; // human
         req[1] = "repairing skill"; // skill
-        req[2] = "rapairrobot"; //robotqt
+        req[2] = "repairrobot"; //robotqt
         req[3] =null;
         req[4] = reqResoruces; // Requirment Resources
         req[5] = false; //exploration equipment
