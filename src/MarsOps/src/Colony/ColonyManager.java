@@ -6,6 +6,7 @@ import Emergencies.*;
 import FacilitiesAndResources.*;
 import Missions.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import java.util.Objects;
@@ -112,10 +113,10 @@ public class ColonyManager {
     public boolean colonyReport() {
         System.out.println(this.getColonyWidRes());
         System.out.println(this.getCurrentMission());
-        System.out.println(this.getEmergencies());
-        System.out.println(this.getFacilities());
-        System.out.println(this.getPeople());
-        System.out.println(this.getRobots());
+        System.out.println(Arrays.toString(this.getEmergencies()));
+        System.out.println(Arrays.toString(this.getFacilities()));
+        System.out.println(Arrays.toString(this.getPeople()));
+        System.out.println(Arrays.toString(this.getRobots()));
         System.out.println(this.getTime());
         System.out.println(this.getUsableResources());
         return true;
@@ -185,7 +186,7 @@ public class ColonyManager {
             }
             // check for the facility
             for(Facility facility: this.facilities){
-                if(found[4]==null)
+                if(req[3]==null)
                     break;;
                 if(facility instanceof Laboratories &&facility.getAvailability()&&facility.getOperationalStatus() ){
                     found[4]=facility;
@@ -193,13 +194,13 @@ public class ColonyManager {
             }
             // search for equipment
             for(Equipment equ:equipments){
-                if((boolean)req[4]==true){
+                if((boolean)req[5]==true){
                     if(equ instanceof ExplorationEquipment&&equ.getAvailability()&&equ.getStatus()) {
                         found[3] = equ;
                         break;
                     }
                 }
-                if((boolean)req[5]==true){
+                if((boolean)req[6]==true){
                     if(equ instanceof ScientificEquipment&&equ.getAvailability()&&equ.getStatus()) {
                         found[3] = equ;
                         break;
@@ -213,7 +214,7 @@ public class ColonyManager {
             else
                 found[2]=false;
             boolean check =this.currentMission.startMission(found);
-            if(check){
+            if(!check){
                 System.out.println(" so the Mission can't be In Progress");
                 this.currentMission=null;
                 return false;
@@ -360,7 +361,7 @@ public class ColonyManager {
 
         for(Facility facility : facilities){
             Resources rec;
-            if(facility.getName() == "laboratory")
+            if(facility.getName().equals( "laboratory"))
                 rec = new Resources(1*consumption , 1 , 1,1,1,1 ,1);
             else rec = new Resources(1 , 1, 1, 1, 1, 1, 1 );
             if(facility.getUsableRes().comp(rec)) {

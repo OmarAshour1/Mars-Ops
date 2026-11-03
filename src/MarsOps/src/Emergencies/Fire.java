@@ -50,9 +50,9 @@ public class Fire extends Emergency{
     @Override
     public Object[] requirments(){
         Object req[] = new Object[12];
-        req[0] = "MedicalOfficer"; // human
+        req[0] = "medicalofficer"; // human
         req[1] = "fireFighting"; // skill
-        req[2] = "repairunit"; //robot
+        req[2] = "repairrobot"; //robot
         req[3] = null; //facility
         req[4] = resource; //resources
         req[5] = null; //exploration equipment

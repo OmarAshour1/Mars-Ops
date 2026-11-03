@@ -44,9 +44,10 @@ public class Exploration extends Mission {
         req[0] = "scientist"; // human
         req[1] = "exploration skill"; // skill
         req[2] = "exploration rovor"; //robotqt
-        req[3] = reqResource; // Requirment Resources
-        req[4] = true; //exploration equipment
-        req[5] = false; //scientific equipment
+        req[3]=null;
+        req[4] = reqResource; // Requirment Resources
+        req[5] = true; //exploration equipment
+        req[6] = false; //scientific equipment
         return req;
     }
 

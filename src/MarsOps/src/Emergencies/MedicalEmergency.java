@@ -37,7 +37,7 @@ public class MedicalEmergency extends Emergency{
         Object[] req = new Object[12];
         req[0] = "medicalofficer"; // human
         req[1] = "firstaid"; // skill
-        req[2] = "rover"; //robot
+        req[2] = "exploration rover"; //robot
         req[3] = null; //facility
         req[4] = resource; //resources
         req[5] = null; //exploration equipment

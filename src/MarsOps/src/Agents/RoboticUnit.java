@@ -20,6 +20,7 @@ public abstract class RoboticUnit {
         if (batteryLevel < 0 || batteryLevel > 100) {
             throw new IllegalArgumentException("Battery must be between 0 and 100.");
         }
+        this.typeRobot=typeRobot;
         this.name = name.trim();
         this.batteryLevel = batteryLevel;
         this.currentLocation = currentLocation;
