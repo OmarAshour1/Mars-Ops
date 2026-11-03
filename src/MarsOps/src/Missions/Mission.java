@@ -36,13 +36,6 @@ public abstract class Mission {
         return location;
     }
 
-    public HumanPersonnel getPersonnel() {
-        return personnel;
-    }
-
-    public RoboticUnit getRobot() {
-        return robot;
-    }
 
     public String getName() {
         return name;
@@ -98,4 +91,5 @@ public abstract class Mission {
     public HumanPersonnel getPerson() {
         return personnel;
     }
+    public abstract Boolean endMission(int x);
 }

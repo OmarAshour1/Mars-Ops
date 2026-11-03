@@ -94,7 +94,8 @@ public class Exploration extends Mission {
         }
         return true;
     }
-    public boolean endMission(){
+
+    public Boolean endMission(int x){
         this.personnel.increaseFatigueLevel(1);
         this.personnel.changeAvailability();
         this.robot.changeAvailability();

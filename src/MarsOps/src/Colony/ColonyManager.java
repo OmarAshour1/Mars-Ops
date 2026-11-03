@@ -132,6 +132,7 @@ public class ColonyManager {
             env.changeToCommDisruption();
         return true;
     }
+
     public boolean applyForAMission(String s) {
         if (this.currentMission != null) {
             System.out.println("Invaild there is a Mission in progress");
@@ -223,9 +224,7 @@ public class ColonyManager {
             }
     }
 
-        }
 
-    }
 
 
     public void consumeFacilityResource(Resources r){

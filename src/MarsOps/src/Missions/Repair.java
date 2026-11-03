@@ -75,7 +75,7 @@ public class Repair extends Mission{
         return true;
     }
 
-    public boolean endMission(int x){
+    public Boolean endMission(){
         this.personnel.increaseFatigueLevel(1);
         this.personnel.changeAvailability();
         this.robot.changeAvailability();
