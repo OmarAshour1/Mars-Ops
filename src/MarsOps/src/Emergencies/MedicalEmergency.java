@@ -98,8 +98,6 @@ public class MedicalEmergency extends Emergency{
         if((Boolean)found[2] == true){
             assignHuman((HumanPersonnel) found[0]);
             assignRobot((RoboticUnit)found[1]);
-            Resources r = super.getPlace().facilityConsumeResource((Resources)found[3]);
-            //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);
             return true;

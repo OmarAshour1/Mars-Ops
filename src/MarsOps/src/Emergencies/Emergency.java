@@ -29,6 +29,10 @@ abstract public class Emergency {
         this.timer = 0;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void increaseTimer(int t){
         this.timer += t;
     }

@@ -15,9 +15,8 @@ public class RoverBreakdown extends Emergency{
         if(!rover.getAvailability() && rover.getHealthStatus()){
             this.rover = rover;
             this.rover.changeHealthStatus();
-            //change mission status to failed
         }
-        // else throw an error
+
     }
 
     @Override
@@ -76,7 +75,6 @@ public class RoverBreakdown extends Emergency{
         if((Boolean)found[2] == true){
             assignHuman((HumanPersonnel) found[0]);
             assignRobot((RoboticUnit)found[1]);
-            //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);
             return true;

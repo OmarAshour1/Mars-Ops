@@ -15,10 +15,21 @@ public abstract class Mission {
     private Facility facility;
     private int [] location =new int[2] ;
     protected HumanPersonnel personnel;
+    private int timer;
+
     public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
         status = MissionStatus.UN_ASSIGNED;
+        this.timer = 0;
+    }
+
+    public void increaseTimer(int t){
+        this.timer += t;
+    }
+
+    public int getTimer() {
+        return timer;
     }
 
     public String getName() {
@@ -76,5 +87,11 @@ public abstract class Mission {
         return true;
     }
 
+    public RoboticUnit getRobot() {
+        return robot;
+    }
 
+    public HumanPersonnel getPerson() {
+        return personnel;
+    }
 }

@@ -83,15 +83,19 @@ public class HumanPersonnel {
         return false;
     }
     public Boolean canPerform(Mission mission) {
-            if(!this.getAvailability()||!this.getHealthStatus())
-                return false;
-            Object [] req=mission.requirments();
-            return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
+        if(!this.getAvailability()||!this.getHealthStatus())
+            return false;
+        Object [] req=mission.requirments();
+        if(req[0]==null)
+            return this.checkSkill((String) req[1]);
+        return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
     public Boolean canResolve(Emergency emergency) {
-        Object[] req = emergency.requirments();
-
+        if(!this.getAvailability()||!this.getHealthStatus())
+            return false;
+        Object [] req=emergency.requirments();
+        return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
     // Protected setters/modifiers
