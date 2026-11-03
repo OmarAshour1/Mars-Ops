@@ -42,7 +42,7 @@ public class Exploration extends Mission {
         Object [] req = new Object[7];
         req[0] = "scientist"; // human
         req[1] = "exploration skill"; // skill
-        req[2] = "exploration rovor"; //robotqt
+        req[2] = "exploration rover"; //robotqt
         req[3]=null;
         req[4] = reqResource; // Requirment Resources
         req[5] = true; //exploration equipment
@@ -50,18 +50,27 @@ public class Exploration extends Mission {
         return req;
     }
 
-    private boolean assignHuman(HumanPersonnel personal) {
-        this.personnel = personal;
+    protected Boolean assignHuman(HumanPersonnel person){
+        if(!person.getAvailability())
+            return false;
+        personnel = person;
+        personnel.changeAvailability();
+        personnel.increaseFatigueLevel(5);
         return true;
     }
 
-    private boolean assignRobot(RoboticUnit robot) {
+    protected Boolean assignRobot(RoboticUnit robot){
+        if(!robot.getAvailability())
+            return false;
         this.robot = robot;
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(10);
         return true;
     }
 
     private boolean assignEquipment(Equipment equipment) {
         this.explorationEquipment = equipment;
+        this.explorationEquipment.changeAvailability();
         return true;
     }
 

@@ -36,7 +36,7 @@ public abstract class RoboticUnit {
     public boolean getAvailability() { return availability; }
 
     public boolean isOperational() {
-        return healthStatus && availability && batteryLevel >= 10;
+        return healthStatus && batteryLevel >= 10;
     }
 
     public boolean chargeBattery(int amount) {

@@ -1,5 +1,6 @@
 package Missions;
 import Agents.HumanPersonnel;
+import FacilitiesAndResources.Equipment;
 import FacilitiesAndResources.Facility;
 import FacilitiesAndResources.Resources;
 import Agents.RoboticUnit;
@@ -56,15 +57,24 @@ public class Rescue extends Mission{
         return reqResources;
     }
 
-    private boolean assignHuman(HumanPersonnel personnel) {
-        this.personnel = personnel;
+    protected Boolean assignHuman(HumanPersonnel person){
+        if(!person.getAvailability())
+            return false;
+        personnel = person;
+        personnel.changeAvailability();
+        personnel.increaseFatigueLevel(5);
         return true;
     }
 
-    private boolean assignRobot(RoboticUnit robot) {
+    protected Boolean assignRobot(RoboticUnit robot){
+        if(!robot.getAvailability())
+            return false;
         this.robot = robot;
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(10);
         return true;
     }
+
 
     public boolean startMission(Object[] found) {
         // 0 --> person  1--> robot 2--> resources  3--> equipment

@@ -24,17 +24,27 @@ public class Research extends Mission{
         req[6] = true; //scientific equipment
         return req;
     }
-    private boolean assignHuman(HumanPersonnel personnel) {
-        this.personnel = personnel;
-        return true;
-    }
-    private boolean assignEquipment(Equipment equipment) {
-        this.researchEuipment = equipment;
+    protected Boolean assignHuman(HumanPersonnel person){
+        if(!person.getAvailability())
+            return false;
+        personnel = person;
+        personnel.changeAvailability();
+        personnel.increaseFatigueLevel(5);
         return true;
     }
 
-    private boolean assignRobot(RoboticUnit robot) {
+    protected Boolean assignRobot(RoboticUnit robot){
+        if(!robot.getAvailability())
+            return false;
         this.robot = robot;
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(10);
+        return true;
+    }
+
+    private boolean assignEquipment(Equipment equipment) {
+        this.researchEuipment = equipment;
+        this.researchEuipment.changeAvailability();
         return true;
     }
 

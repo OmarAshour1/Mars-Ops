@@ -296,7 +296,9 @@ public class ColonyManager {
         Boolean ret = emergencies[emergcnt-1].resolve(found);
         if(!ret) return false;
         if(emergencies[emergcnt-1].getStatus()== Emergency.EmergencyStatus.Resolving){
-            Resources r = emergencies[emergcnt-1].getPlace().facilityConsumeResource((Resources)emergencies[emergcnt-1].requirments()[4]);
+            Resources r=(Resources)emergencies[emergcnt-1].requirments()[4];
+            if(!emergencies[emergcnt-1].getName().equals("roverbreakdown"))
+                 r = emergencies[emergcnt-1].getPlace().facilityConsumeResource((Resources)emergencies[emergcnt-1].requirments()[4]);
             consumeFacilityResource(r);
         }
         return true;
@@ -332,9 +334,9 @@ public class ColonyManager {
                     currentMission.stopMission();
                     currentMission=null;
                 }
-                if (currentMission.getStatus() == Mission.MissionStatus.IN_PROGRESS)
+                if (currentMission != null&&currentMission.getStatus() == Mission.MissionStatus.IN_PROGRESS)
                     currentMission.increaseTimer(t);
-                if (currentMission.getTimer() >= 3) {
+                if (currentMission!= null&&currentMission.getTimer() >= 3) {
                     currentMission.endMission();
                     currentMission=null;
                 }
@@ -350,9 +352,7 @@ public class ColonyManager {
                     else if(!emergency.getRobot().isOperational()){
                         emergency.unresolve();
                     }
-                    else if(!emergency.getPlace().getOperationalStatus()){
-                        emergency.unresolve();
-                    }
+
                     if(emergency.getStatus() == Emergency.EmergencyStatus.Resolving)
                         emergency.increaseTimer(t);
                     if(emergency.getTimer() >= 3){

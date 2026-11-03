@@ -44,15 +44,24 @@ public class Repair extends Mission{
         return req;
     }
 
-    private boolean assignHuman(HumanPersonnel personnel) {
-        this.personnel = personnel;
+    protected Boolean assignHuman(HumanPersonnel person){
+        if(!person.getAvailability())
+            return false;
+        personnel = person;
+        personnel.changeAvailability();
+        personnel.increaseFatigueLevel(5);
         return true;
     }
 
-    private boolean assignRobot(RoboticUnit robot) {
+    protected Boolean assignRobot(RoboticUnit robot){
+        if(!robot.getAvailability())
+            return false;
         this.robot = robot;
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(10);
         return true;
     }
+
     public boolean startMission(Object [] found ){
         // 0--> Person  1--> Robot   2-->resources  3-->equipment 4-->facility
         if (found[0]==null){
