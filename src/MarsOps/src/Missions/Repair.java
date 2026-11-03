@@ -7,12 +7,14 @@ public class Repair extends Mission{
     private RoboticUnit robot;
     private  static final Resources reqResoruces=new Resources(0,0,0,0,0,0,4); ;
     private  Equipment equipment;
+    private int x;
 
     public Repair(Facility facility) {
         super(facility, "repair");
         this.personnel = null;
         this.equipment = null;
         this.robot = null;
+        this.x=1;
     }
 
     public Repair(Equipment equipment) {
@@ -20,6 +22,7 @@ public class Repair extends Mission{
         this.personnel = null;
         this.equipment = equipment;
         this.robot = null;
+        this.x=0;
     }
 
     public HumanPersonnel getPersonnel() {
@@ -75,16 +78,16 @@ public class Repair extends Mission{
         return true;
     }
 
-    public boolean endMission(int x){
+    public boolean endMission(){
         this.personnel.increaseFatigueLevel(1);
         this.personnel.changeAvailability();
         this.robot.changeAvailability();
         this.robot.consumeBattery(5);
         changeStatus(MissionStatus.COMPLETED);
-        if (x==0){
+        if (this.x==0){
             this.equipment.changeAvailability() ;
         }
-        if(x==1){
+        if(this.x==1){
            this.facility.changeAvailability();
            this.facility.changeOperationalStatus();
         }
