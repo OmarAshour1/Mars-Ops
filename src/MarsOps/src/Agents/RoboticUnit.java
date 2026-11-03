@@ -90,33 +90,17 @@ public abstract class RoboticUnit {
     }
 
     public boolean canPerform(Mission mission) {
-        String s=mission.getName();
-        if(!getAvailability()||!getHealthStatus())
+        Object [] req= mission.requirments();
+        if(!this.getHealthStatus()||!this.getAvailability())
             return false;
-        if(s.equals("repair")){
-            if(this.getTypeRobot().equals("repairrobot"))
-                return true;
-            return false;
-        }
-        else if (s.equals("research")){
-            if(this.getTypeRobot().equals("repairrobot"))
-                return true;
-            return false;
-        }
-        else if (s.equals("exploration")){
-            if(this.getTypeRobot().equals("rover"))
-                return true;
-            return false;
-        }
-        else{
-            if(this.getTypeRobot().equals("rover"))
-                return true;
-            return false;
-        }
+        return req[2].equals(this.getTypeRobot());
     }
 
     public boolean canResolve(Emergency emergency) {
-        return emergency != null && isOperational() && hasSkill(emergency.requirments());
+        Object [] req= emergency.requirments();
+        if(!this.getHealthStatus()||!this.getAvailability())
+            return false;
+        return req[2].equals(this.getTypeRobot());
     }
 
     public String toString() {

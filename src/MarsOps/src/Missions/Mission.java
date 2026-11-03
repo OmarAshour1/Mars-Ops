@@ -12,13 +12,25 @@ public abstract class Mission {
     protected RoboticUnit robot;
     private MissionStatus status ;
     private String name;
-    private Facility facility;
+    protected Facility facility;
     private int [] location =new int[2] ;
     protected HumanPersonnel personnel;
     public Mission(Facility facility, String name) {
         this.facility = facility;
         this.name = name;
         status = MissionStatus.UN_ASSIGNED;
+    }
+
+    public int[] getLocation() {
+        return location;
+    }
+
+    public HumanPersonnel getPersonnel() {
+        return personnel;
+    }
+
+    public RoboticUnit getRobot() {
+        return robot;
     }
 
     public String getName() {
@@ -49,23 +61,15 @@ public abstract class Mission {
         else if (x==4)
             System.out.println(" Insufficient Resources ");
         else if (x==5)
-            System.out.println("the Exploration equipment isn't found ");
+            System.out.println("the equipment isn't found ");
         else
             return false;
         return true;
     }
     public abstract boolean startMission(Object [] requirments);
 
-    public boolean endMission(){
-        this.personnel.increaseFatigueLevel(1);
-        this.personnel.changeAvailability();
-        this.robot.changeAvailability();
-        this.robot.consumeBattery(5);
-        this.status=MissionStatus.COMPLETED;
-        return true;
-    }
     public abstract Object[] requirments();
-    public boolean changeStatus(MissionStatus s){
+    protected boolean changeStatus(MissionStatus s){
         this.status=s;
         return true;
     }

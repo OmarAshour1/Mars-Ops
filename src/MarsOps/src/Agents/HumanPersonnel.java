@@ -2,7 +2,7 @@ package Agents;
 
 import FacilitiesAndResources.Facility;
 import Missions.Mission;
-
+import Emergencies.*;
 import javax.swing.*;
 
 public class HumanPersonnel {
@@ -81,15 +81,21 @@ public class HumanPersonnel {
         }
         return false;
     }
+
     public Boolean canPerform(Mission mission) {
             if(!this.getAvailability()||!this.getHealthStatus())
                 return false;
             Object [] req=mission.requirments();
+            if(req[0]==null)
+                return this.checkSkill((String) req[1]);
             return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
-    public Boolean canResolve(Object emergency) {
-        return this.availability && this.healthStatus;
+    public Boolean canResolve(Emergency emergency) {
+        if(!this.getAvailability()||!this.getHealthStatus())
+            return false;
+        Object [] req=emergency.requirments();
+        return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
     // Protected setters/modifiers
@@ -99,6 +105,12 @@ public class HumanPersonnel {
         }
         this.location = location;
         this.place = place; // Allows null for surface of Mars
+        return true;
+    }
+
+    public boolean decreaseFatigueLevel(int level) {
+        if (level < 0) return false;
+        this.fatigueLevel = Math.max(0, this.fatigueLevel - level);
         return true;
     }
 

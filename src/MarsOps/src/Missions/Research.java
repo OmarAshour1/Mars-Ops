@@ -1,5 +1,6 @@
 package Missions;
 import Agents.HumanPersonnel;
+import Agents.RoboticUnit;
 import FacilitiesAndResources.*;
 
 public class Research extends Mission{
@@ -16,7 +17,7 @@ public class Research extends Mission{
         Object req[] = new Object[7];
         req[0] = "scientist"; // human
         req[1] = "scientific skill"; // skill
-        req[2] = "repair robot"; //robotqt
+        req[2] = "repairrobot"; //robotqt
         req[3] = "laboratory" ;// Facility
         req[4] = reqResoruces; // Requirment Resources
         req[5] = false; //exploration equipment
@@ -33,13 +34,13 @@ public class Research extends Mission{
     }
     @Override
     public boolean startMission(Object[] found) {
-        // 0 --> person  1--> robot 2--> resources  3--> equipment
+        // 0 --> person  1--> robot 2--> resources  3--> equipment 4-->facility
         if (found[0] == null) {
             missionFaild(0);
             return false;
         }
         if (found[3] == null) {
-            missionFaild(6);
+            missionFaild(5);
             return false;
         }
         if ((boolean) found[2] == false) {
@@ -55,6 +56,15 @@ public class Research extends Mission{
             this.changeStatus(MissionStatus.IN_PROGRESS);
             return true;
         }
+        return true;
+    }
+    public boolean endMission(){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
+        changeStatus(MissionStatus.COMPLETED);
+        System.out.println("Mission Completed");
         return true;
     }
 }

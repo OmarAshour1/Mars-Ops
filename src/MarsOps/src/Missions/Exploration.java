@@ -75,7 +75,7 @@ public class Exploration extends Mission {
             return false;
         }
         if (found[3] == null) {
-            missionFaild(6);
+            missionFaild(5);
             return false;
         }
         if ((boolean) found[2] == false) {
@@ -92,6 +92,15 @@ public class Exploration extends Mission {
             this.changeStatus(MissionStatus.IN_PROGRESS);
             return true;
         }
+        return true;
+    }
+    public boolean endMission(){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
+        changeStatus(MissionStatus.COMPLETED);
+        System.out.println("Mission Completed");
         return true;
     }
 }
