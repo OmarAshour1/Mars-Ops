@@ -6,15 +6,17 @@ public class Exploration extends Mission {
     private HumanPersonnel personal;
     private RoboticUnit robot;
     private Equipment explorationEquipment;
+    private boolean dust;
     private int[] SpecificRegion = new int[2];
     private static final Resources reqResource = new Resources(0, 0, 0, 2, 4, 0, 0);
 
-    public Exploration( int[] specificRegion) {
+    public Exploration( int[] specificRegion, boolean dust) {
         super(null, "exploration");
         this.personal = null;
         SpecificRegion = specificRegion;
         this.explorationEquipment = null;
         this.robot = null;
+        this.dust=dust;
     }
 
     public int[] getSpecificRegion() {
@@ -66,6 +68,10 @@ public class Exploration extends Mission {
     @Override
     public boolean startMission(Object[] found) {
         // 0 --> person  1--> robot 2--> resources  3--> equipment
+        if(this.dust=true){
+            System.out.printf(" Invaild Mission because dust storm");
+            return false;
+        }
         if (found[0] == null) {
             missionFaild(0);
             return false;
