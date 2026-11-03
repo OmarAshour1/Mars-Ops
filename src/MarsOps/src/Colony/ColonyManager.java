@@ -150,7 +150,7 @@ public class ColonyManager {
             int[] location = new int[2];
             location[0] = scanner.nextInt();
             location[1] = scanner.nextInt();
-            this.currentMission = new Exploration(location);
+            this.currentMission = new Exploration(location,this.env.isDust());
         } else {
             Scanner scanner = new Scanner(System.in);
             System.out.println("choose you want to rapir personnel or facility ");
