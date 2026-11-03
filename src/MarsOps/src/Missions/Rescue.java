@@ -10,12 +10,17 @@ public class Rescue extends Mission{
     private boolean commCap;
     private int [] location= new int[2];
     private Object target;
+    private int x;
     private static Resources reqResources=new Resources(0,0,0,2,4,0,4);
     public Rescue(int[] location, boolean commCap,Object target) {
         super(null, "rescue");
         this.personnel = null;
         this.location = location;
         this.commCap = commCap;
+        if(target instanceof HumanPersonnel)
+            this.x=0;
+        else
+            this.x=1;
         this.target=target;
         this.robot = null;
     }
@@ -93,13 +98,13 @@ public class Rescue extends Mission{
         this.robot.changeAvailability();
         this.robot.consumeBattery(5);
         changeStatus(MissionStatus.COMPLETED);
-        if (x==0){
+        if (this.x==0){
             HumanPersonnel p= (HumanPersonnel) this.target;
             p.decreaseFatigueLevel(5);
             p.changeAvailability();
             p.changeHealthStatus(true);
         }
-        if(x==1){
+        if(this.x==1){
             RoboticUnit p=(RoboticUnit) this.target;
             p.changeAvailability();
             p.changeHealthStatus();

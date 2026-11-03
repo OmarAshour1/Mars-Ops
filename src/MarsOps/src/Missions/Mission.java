@@ -91,5 +91,5 @@ public abstract class Mission {
     public HumanPersonnel getPerson() {
         return personnel;
     }
-    public abstract Boolean endMission(int x);
+    public abstract Boolean endMission();
 }
