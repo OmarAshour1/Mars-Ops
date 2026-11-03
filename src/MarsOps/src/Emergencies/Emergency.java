@@ -19,12 +19,26 @@ abstract public class Emergency {
     private HumanPersonnel personnel;
     private RoboticUnit robot;
     private Resources resources;
+    private int timer;
 
     public Emergency(String name, int[] location, Facility place) {
         emergencyStatus = EmergencyStatus.UnResolved;
         this.name = name;
         this.location = location;
         this.place = place;
+        this.timer = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void increaseTimer(int t){
+        this.timer += t;
+    }
+
+    public int getTimer() {
+        return timer;
     }
 
     public int[] getLocation() {
@@ -42,8 +56,15 @@ abstract public class Emergency {
     public void setEmergencyStatus(EmergencyStatus emergencyStatus) {
         this.emergencyStatus = emergencyStatus;
     }
-    
-    
+
+    public HumanPersonnel getPersonnel() {
+        return personnel;
+    }
+
+    public RoboticUnit getRobot() {
+        return robot;
+    }
+
     protected Boolean assignHuman(HumanPersonnel person){
         if(!person.getAvailability())
             return false;
@@ -66,6 +87,14 @@ abstract public class Emergency {
     
     abstract public Boolean resolve(Object found[]);
     abstract public Object[] requirments();
+    public Boolean unresolve(){
+        System.out.println("emergency is Unresolved...");
+        setEmergencyStatus(EmergencyStatus.UnResolved);
+        return true;
+    }
+
+    abstract public Boolean resolved();
+
     
     
 }

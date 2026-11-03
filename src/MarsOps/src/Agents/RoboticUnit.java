@@ -1,8 +1,8 @@
 package Agents;
 
-import Emergencies.Emergency;
-import FacilitiesAndResources.Facility;
-import Missions.Mission;
+import Emergencies.*;
+import FacilitiesAndResources.*;
+import Missions.*;
 
 public abstract class RoboticUnit {
 
@@ -11,24 +11,21 @@ public abstract class RoboticUnit {
     private boolean healthStatus;
     private Facility currentLocation;
     private boolean availability;
-    private String[] skills;
-
-    public RoboticUnit(String name, int batteryLevel, Facility currentLocation, String[] skills) {
+    private String typeRobot;
+    private int [] location = new int[2];
+    public RoboticUnit(String name, int batteryLevel, Facility currentLocation, String typeRobot,int []location) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
         if (batteryLevel < 0 || batteryLevel > 100) {
             throw new IllegalArgumentException("Battery must be between 0 and 100.");
         }
-        if (skills == null || skills.length == 0) {
-            throw new IllegalArgumentException("A robot needs at least one skill.");
-        }
         this.name = name.trim();
         this.batteryLevel = batteryLevel;
         this.currentLocation = currentLocation;
-        this.skills = skills.clone();
         this.healthStatus = true;
         this.availability = true;
+        this.location=location;
     }
 
     public String getName() { return name; }
@@ -36,13 +33,6 @@ public abstract class RoboticUnit {
     public boolean getHealthStatus() { return healthStatus; }
     public Facility getCurrentLocation() { return currentLocation; }
     public boolean getAvailability() { return availability; }
-
-    public boolean hasSkill(String skill) {
-        for (String s : skills) {
-            if (s.equalsIgnoreCase(skill)) return true;
-        }
-        return false;
-    }
 
     public boolean isOperational() {
         return healthStatus && availability && batteryLevel >= 10;
@@ -66,6 +56,22 @@ public abstract class RoboticUnit {
         return true;
     }
 
+    public String getTypeRobot() {
+        return typeRobot;
+    }
+
+    public boolean isHealthStatus() {
+        return healthStatus;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public int[] getLocation() {
+        return location;
+    }
+
     public boolean changeHealthStatus() {
         healthStatus = !healthStatus;
         if (!healthStatus) availability = false;
@@ -84,11 +90,17 @@ public abstract class RoboticUnit {
     }
 
     public boolean canPerform(Mission mission) {
-        return mission != null && isOperational() && hasSkill(mission.getRequiredCapability());
+        Object [] req= mission.requirments();
+        if(!this.getHealthStatus()||!this.getAvailability())
+            return false;
+        return req[2].equals(this.getTypeRobot());
     }
 
     public boolean canResolve(Emergency emergency) {
-        return emergency != null && isOperational() && hasSkill(emergency.getRequiredCapability());
+        Object [] req= emergency.requirments();
+        if(!this.getHealthStatus()||!this.getAvailability())
+            return false;
+        return req[2].equals(this.getTypeRobot());
     }
 
     public String toString() {

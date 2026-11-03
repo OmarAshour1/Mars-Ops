@@ -9,13 +9,12 @@ public class Exploration extends Mission {
     private int[] SpecificRegion = new int[2];
     private static final Resources reqResource = new Resources(0, 0, 0, 2, 4, 0, 0);
 
-    public Exploration( String name, HumanPersonnel personal, int[] specificRegion,
-                       Resources resource, Equipment explorationEquipment, RoboticUnit robot) {
-        super(null, name);
-        this.personal = personal;
+    public Exploration( int[] specificRegion) {
+        super(null, "exploration");
+        this.personal = null;
         SpecificRegion = specificRegion;
-        this.explorationEquipment = explorationEquipment;
-        this.robot = robot;
+        this.explorationEquipment = null;
+        this.robot = null;
     }
 
     public int[] getSpecificRegion() {
@@ -39,7 +38,7 @@ public class Exploration extends Mission {
     }
 
     public Object[] requirments() {
-        Object req[] = new Object[7];
+        Object [] req = new Object[7];
         req[0] = "scientist"; // human
         req[1] = "exploration skill"; // skill
         req[2] = "exploration rovor"; //robotqt
@@ -76,7 +75,7 @@ public class Exploration extends Mission {
             return false;
         }
         if (found[3] == null) {
-            missionFaild(6);
+            missionFaild(5);
             return false;
         }
         if ((boolean) found[2] == false) {
@@ -93,6 +92,16 @@ public class Exploration extends Mission {
             this.changeStatus(MissionStatus.IN_PROGRESS);
             return true;
         }
+        return true;
+    }
+
+    public Boolean endMission(){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
+        changeStatus(MissionStatus.COMPLETED);
+        System.out.println("Mission Completed");
         return true;
     }
 }

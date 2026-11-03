@@ -4,25 +4,25 @@ import Agents.RoboticUnit;
 import FacilitiesAndResources.*;
 
 public class Repair extends Mission{
-    private HumanPersonnel personnel;
     private RoboticUnit robot;
     private  static final Resources reqResoruces=new Resources(0,0,0,0,0,0,4); ;
     private  Equipment equipment;
+    private int x;
 
-    public Repair(Facility facility, String name, HumanPersonnel personnel,
-                   Resources resource, RoboticUnit robot) {
-        super(facility, name);
-        this.personnel = personnel;
+    public Repair(Facility facility) {
+        super(facility, "repair");
+        this.personnel = null;
         this.equipment = null;
-        this.robot = robot;
+        this.robot = null;
+        this.x=1;
     }
 
-    public Repair(Equipment equipment, String name, HumanPersonnel personnel,
-                  Resources resource, RoboticUnit robot) {
-        super(null, name);
-        this.personnel = personnel;
+    public Repair(Equipment equipment) {
+        super(null, "repair");
+        this.personnel = null;
         this.equipment = equipment;
-        this.robot = robot;
+        this.robot = null;
+        this.x=0;
     }
 
     public HumanPersonnel getPersonnel() {
@@ -36,7 +36,7 @@ public class Repair extends Mission{
         Object req[] = new Object[7];
         req[0] = "enginner"; // human
         req[1] = "repairing skill"; // skill
-        req[2] = "rapair robot"; //robotqt
+        req[2] = "rapairrobot"; //robotqt
         req[3] = reqResoruces; // Requirment Resources
         req[4] = false; //exploration equipment
         req[5] = false; //scientific equipment
@@ -53,7 +53,7 @@ public class Repair extends Mission{
         return true;
     }
     public boolean startMission(Object [] found ){
-        // 0--> Person  1--> Robot  2-->resources  3-->equipment
+        // 0--> Person  1--> Robot   2-->resources  3-->equipment 4-->facility
         if (found[0]==null){
             missionFaild(1);
             return false;
@@ -62,7 +62,7 @@ public class Repair extends Mission{
             missionFaild(3);
             return false;
         }
-        else if ((boolean) found[2] == false ){
+        else if ((boolean) found[2] == false){
             missionFaild(4);
             return false;
         }
@@ -75,6 +75,23 @@ public class Repair extends Mission{
             this.changeStatus(MissionStatus.IN_PROGRESS);
             return true;
         }
+        return true;
+    }
+
+    public Boolean endMission(){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
+        changeStatus(MissionStatus.COMPLETED);
+        if (this.x==0){
+            this.equipment.changeAvailability() ;
+        }
+        if(this.x==1){
+           this.facility.changeAvailability();
+           this.facility.changeOperationalStatus();
+        }
+        System.out.println("Mission Completed");
         return true;
     }
 

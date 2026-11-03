@@ -5,12 +5,13 @@ import FacilitiesAndResources.Facility;
 
 public class MedicalOfficer extends HumanPersonnel {
 
+    private static final String type="medicalofficer";
     public MedicalOfficer() {
         super();
     }
 
     public MedicalOfficer(String name, int identificationNumber, int[] location, Facility place, String[] skills) {
-        super(name, identificationNumber, location, place, skills);
+        super(name, identificationNumber, location, place, skills,type);
     }
 
     public boolean respondMedicalEmergences() {
