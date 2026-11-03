@@ -1,9 +1,8 @@
 package Agents;
 
-import Emergencies.Emergency;
 import FacilitiesAndResources.Facility;
 import Missions.Mission;
-
+import Emergencies.*;
 import javax.swing.*;
 
 public class HumanPersonnel {
@@ -82,13 +81,14 @@ public class HumanPersonnel {
         }
         return false;
     }
+
     public Boolean canPerform(Mission mission) {
-        if(!this.getAvailability()||!this.getHealthStatus())
-            return false;
-        Object [] req=mission.requirments();
-        if(req[0]==null)
-            return this.checkSkill((String) req[1]);
-        return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
+            if(!this.getAvailability()||!this.getHealthStatus())
+                return false;
+            Object [] req=mission.requirments();
+            if(req[0]==null)
+                return this.checkSkill((String) req[1]);
+            return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
     public Boolean canResolve(Emergency emergency) {
@@ -98,6 +98,7 @@ public class HumanPersonnel {
         return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
+
     // Protected setters/modifiers
     public boolean setCurrentLocation(int[] location, Facility place) {
         if (location == null || location.length != 2) {
@@ -105,6 +106,12 @@ public class HumanPersonnel {
         }
         this.location = location;
         this.place = place; // Allows null for surface of Mars
+        return true;
+    }
+
+    public boolean decreaseFatigueLevel(int level) {
+        if (level < 0) return false;
+        this.fatigueLevel = Math.max(0, this.fatigueLevel - level);
         return true;
     }
 
@@ -132,12 +139,6 @@ public class HumanPersonnel {
     public boolean increaseFatigueLevel(int level) {
         if (level < 0) return false;
         this.fatigueLevel = Math.min(5, this.fatigueLevel + level);
-        return true;
-    }
-
-    public boolean decreaseFatigueLevel(int level) {
-        if (level < 0) return false;
-        this.fatigueLevel = Math.max(0, this.fatigueLevel - level);
         return true;
     }
 

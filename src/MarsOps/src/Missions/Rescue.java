@@ -9,12 +9,14 @@ public class Rescue extends Mission{
     private  RoboticUnit robot;
     private boolean commCap;
     private int [] location= new int[2];
+    private Object target;
     private static Resources reqResources=new Resources(0,0,0,2,4,0,4);
-    public Rescue(int[] location, boolean commCap) {
+    public Rescue(int[] location, boolean commCap,Object target) {
         super(null, "rescue");
         this.personnel = null;
         this.location = location;
         this.commCap = commCap;
+        this.target=target;
         this.robot = null;
     }
     public Object[] requirments() {
@@ -82,6 +84,28 @@ public class Rescue extends Mission{
             this.changeStatus(MissionStatus.IN_PROGRESS);
             return true;
         }
+
+        return true;
+    }
+    public boolean endMission(int x){
+        this.personnel.increaseFatigueLevel(1);
+        this.personnel.changeAvailability();
+        this.robot.changeAvailability();
+        this.robot.consumeBattery(5);
+        changeStatus(MissionStatus.COMPLETED);
+        if (x==0){
+            HumanPersonnel p= (HumanPersonnel) this.target;
+            p.decreaseFatigueLevel(5);
+            p.changeAvailability();
+            p.changeHealthStatus(true);
+        }
+        if(x==1){
+            RoboticUnit p=(RoboticUnit) this.target;
+            p.changeAvailability();
+            p.changeHealthStatus();
+            p.chargeBattery(100);
+        }
+        System.out.println("Mission Completed");
         return true;
     }
 }

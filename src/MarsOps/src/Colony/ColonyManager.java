@@ -6,6 +6,8 @@ import Emergencies.*;
 import FacilitiesAndResources.*;
 import Missions.*;
 
+import java.util.Scanner;
+
 import java.util.Objects;
 
 public class ColonyManager {
@@ -16,9 +18,9 @@ public class ColonyManager {
     private Resources usableResources;
     private Mission currentMission;
     private Emergency[] emergencies;
-    private Equipment[] equipments;
     private int time;
     private Environment env;
+    private Equipment[] equipments;
     private int cnt = 0;
     private int emergcnt;
     private int consumption;
@@ -130,23 +132,97 @@ public class ColonyManager {
             env.changeToCommDisruption();
         return true;
     }
-
     public boolean applyForAMission(String s) {
-        Object[] found = new Object[4];
         if (this.currentMission != null) {
             System.out.println("Invaild there is a Mission in progress");
             return false;
         }
         if (s.equals("research")) {
             this.currentMission = new Research();
-            Object[] req = this.currentMission.requirments();
-            // search for the scientists
-            for (HumanPersonnel personnel : this.people) {
-                if (personnel.canPerform(this.currentMission)) {
-                    found[0] = personnel;
+        } else if (s.equals("rescue")) {
+            people[1].changeHealthStatus(false);
+            people[1].changeAvailability();
+            this.currentMission = new Rescue(people[1].getLocation(), !this.env.isCommDisruption(), people[1]);
+        } else if (s.equals("exploration")) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("enter the location of the specific regin x,y : ");
+            int[] location = new int[2];
+            location[0] = scanner.nextInt();
+            location[1] = scanner.nextInt();
+            this.currentMission = new Exploration(location);
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("choose you want to rapir personnel or facility ");
+            int x = scanner.nextInt();
+            if (x == 0) {
+                facilities[3].changeOperationalStatus();
+                facilities[3].changeAvailability();
+                this.currentMission = new Repair(facilities[3]);
+            } else if (x == 1) {
+                equipments[0].changeAvailability();
+                this.currentMission = new Repair(equipments[0]);
+            }
+
+        }
+
+
+        Object [] found =new Object[5];
+            Object[] req=this.currentMission.requirments();
+            // search for the human
+            for (HumanPersonnel personnel:this.people){
+                if (personnel.canPerform(this.currentMission)){
+                    found[0]=personnel;
                     break;
                 }
             }
+            // search for the robot
+            for( RoboticUnit robot : this.robots){
+                if(robot.canPerform(this.currentMission)){
+                    found[1]=robot;
+                    break;
+                }
+            }
+            // check for the facility
+            for(Facility facility: this.facilities){
+                if(found[4]==null)
+                    break;;
+                if(facility instanceof Laboratories &&facility.getAvailability()&&facility.getOperationalStatus() ){
+                    found[4]=facility;
+                }
+            }
+            // search for equipment
+            for(Equipment equ:equipments){
+                if((boolean)req[4]==true){
+                    if(equ instanceof ExplorationEquipment&&equ.getAvailability()&&equ.getStatus()) {
+                        found[3] = equ;
+                        break;
+                    }
+                }
+                if((boolean)req[5]==true){
+                    if(equ instanceof ScientificEquipment&&equ.getAvailability()&&equ.getStatus()) {
+                        found[3] = equ;
+                        break;
+                    }
+                }
+            }
+            // check Resources
+            if(usableResources.comp((Resources) req[4])){
+                found[2]=true;
+            }
+            else
+                found[2]=false;
+            boolean check =this.currentMission.startMission(found);
+            if(check){
+                System.out.println(" so the Mission can't be In Progress");
+                this.currentMission=null;
+                return false;
+            }
+            else{
+                System.out.println("the Mission is In Progress ");
+                return true;
+            }
+    }
+
         }
 
     }
