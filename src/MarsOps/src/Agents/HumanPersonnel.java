@@ -98,6 +98,7 @@ public class HumanPersonnel {
         return req[0].equals(this.getType())&& this.checkSkill((String) req[1]);
     }
 
+
     // Protected setters/modifiers
     public boolean setCurrentLocation(int[] location, Facility place) {
         if (location == null || location.length != 2) {

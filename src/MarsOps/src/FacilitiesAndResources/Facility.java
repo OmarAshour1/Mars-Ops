@@ -22,11 +22,9 @@ public class Facility {
         this.availability = true;
         this.personnels = new HumanPersonnel[capacity];
         this.numberOfPersonnels = 0;
-        if(resources.comp(threshold)) {
-            this.resources = new Resources(900,100,200,200,1000,500,500);
-            this.usableRes = resources.sub(threshold);
-        }
-        //else throw an error
+        this.resources = new Resources(900,100,200,200,1000,500,500);
+        this.usableRes = resources.sub(threshold);
+
     }
 
     public String getName() {
@@ -67,13 +65,6 @@ public class Facility {
         return false;
     }
 
-    public Resources getUsableRes() {
-        return usableRes;
-    }
-
-    public Resources getResources() {
-        return resources;
-    }
 
     public HumanPersonnel[] getPersonnels() {
         return personnels;
@@ -85,6 +76,14 @@ public class Facility {
 
     public Boolean canAcceptHuman(){
         return numberOfPersonnels < capacity;
+    }
+
+    public Resources getUsableRes() {
+        return usableRes;
+    }
+
+    public Resources getResources() {
+        return resources;
     }
 
     public Boolean changeAvailability(){

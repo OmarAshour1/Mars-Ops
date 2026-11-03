@@ -58,7 +58,7 @@ public class Research extends Mission{
         }
         return true;
     }
-    public boolean endMission(){
+    public Boolean endMission(){
         this.personnel.increaseFatigueLevel(1);
         this.personnel.changeAvailability();
         this.robot.changeAvailability();

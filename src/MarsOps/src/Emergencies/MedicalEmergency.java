@@ -2,6 +2,7 @@ package Emergencies;
 
 import Agents.HumanPersonnel;
 import Agents.RoboticUnit;
+import FacilitiesAndResources.Equipment;
 import FacilitiesAndResources.Facility;
 import FacilitiesAndResources.Resources;
 
@@ -44,6 +45,20 @@ public class MedicalEmergency extends Emergency{
         return req;
     }
 
+    @Override
+    public Boolean resolved() {
+        System.out.println("emergency is resolved...");
+        setEmergencyStatus(EmergencyStatus.Resolved);
+        this.patient.changeAvailability();
+        this.patient.changeHealthStatus(true);
+        this.patient.decreaseFatigueLevel(5);
+
+        super.getPersonnel().changeAvailability();
+        super.getRobot().changeAvailability();
+
+        return true;
+    }
+
     private void unableToResolve(int x){
         if(x == 0){
             System.out.println("We can't find any available or even capable Person.....");
@@ -59,6 +74,8 @@ public class MedicalEmergency extends Emergency{
             System.out.println("facility is not operational......");
         }
     }
+
+
 
     @Override
     public Boolean resolve(Object[] found) {
@@ -81,8 +98,6 @@ public class MedicalEmergency extends Emergency{
         if((Boolean)found[2] == true){
             assignHuman((HumanPersonnel) found[0]);
             assignRobot((RoboticUnit)found[1]);
-            Resources r = super.getPlace().facilityConsumeResource((Resources)found[3]);
-            //colonyConsumeRes(r);  if the facility has enough , found[3] will be zeros
             System.out.println("emergency is being resolved...");
             setEmergencyStatus(EmergencyStatus.Resolving);
             return true;
